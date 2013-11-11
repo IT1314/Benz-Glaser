@@ -4,7 +4,8 @@
 #include <string>
 
 using namespace std;
-
+//! \brief class GatterTyp
+//!  enthaelt die Grundlegenden Funktionen und Grundwerte der Gatter
 class GatterTyp{
 protected:
 

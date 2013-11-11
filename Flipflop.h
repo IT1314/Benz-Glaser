@@ -2,7 +2,8 @@
 #define FLIPFLOP_H
 
 #include"GatterTyp.h"
-
+//! \brief class Flipflop
+//!  erweitert die Klasse GatterTyp um die Flipflops.
 class Flipflop : public GatterTyp{
 private:
 
