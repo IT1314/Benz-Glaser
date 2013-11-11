@@ -13,9 +13,9 @@ private:
 
 public:
 
-	Flipflop() : GatterTyp();
+	Flipflop();
 	virtual~ Flipflop();
-	bool getIsFlipflop(){return true;}
+	virtual  bool getIsFlipflop(){return true;}
 	short getSetupTime(){return setupTime;}
 	short getHoldTime(){ return holdTime;}
 	short getLastKapazitaetClock(){return lastKapazitaetClock;}
