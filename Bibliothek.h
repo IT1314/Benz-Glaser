@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "GatterTyp.h"
+
 #include "Flipflop.h"
 
 using namespace std;
@@ -18,6 +18,9 @@ private :
 	void readError();
 
 public :
+	Bibliothek();
+	Bibliothek( string pfad);
+	~Bibliothek();
 	string getPfad();
 	GatterTyp* getBibElement(string typ);
 	void dateiAusgabe();
