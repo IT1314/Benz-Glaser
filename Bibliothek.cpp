@@ -23,6 +23,24 @@ GatterTyp* Bibliothek :: getBibElement( string typ){
 
 }
 void Bibliothek ::dateiAusgabe(){
+	ifstream in (datei.c_str());
+	if(in){
+		string zeile;
+		int line = 1;
+		if(!in.eof){
+			while (!(in.eof()) ){
+				getline ( in , zeile );//!Zeilenweise einlesen
+				cout << line << ". "<< zeile <<endl;
+				line++;
+			}
+		}
+		else{
+			readError;
+		}
+	}
+	else {
+		openError;
+	}
 }
 void Bibliothek ::dateiAuswerten(){
 
