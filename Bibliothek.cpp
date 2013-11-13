@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,8 +20,16 @@ string Bibliothek :: getPfad (){
 }
 
 GatterTyp* Bibliothek :: getBibElement( string typ){
-
-
+	GatterTyp* Teil;
+	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){
+		if (*it = typ){
+			Teil = it;
+			return Teil;
+		}
+		
+	}
+	cout << " Ist nicht im Speicher"<<endl;
+	return 0;	
 }
 void Bibliothek ::dateiAusgabe(){
 	ifstream in (datei.c_str());
@@ -30,13 +39,16 @@ void Bibliothek ::dateiAusgabe(){
 		if(!in.eof){
 			while (!(in.eof()) ){
 				getline ( in , zeile );//!Zeilenweise einlesen
-				cout << line << ". "<< zeile <<endl;
-				line++;
+				if(in.bad() == false){
+					cout << line << ". "<< zeile <<endl;
+					line++;
+				}
+				else{
+					readError;
+					}
 			}
 		}
-		else{
-			readError;
-		}
+		
 	}
 	else {
 		openError;
@@ -52,130 +64,136 @@ void Bibliothek ::dateiAuswerten(){
 		string zeile;
 		string flip = "dff";
 		while (!(in.eof()) ){
-			getline ( in , zeile );//!Zeilenweise einlesen
-			zeile.find("#begin");
-			zeile.find("[[ Bausteine]]");
-			if(zeile.substr(zeile.find("[") +1,zeile.find("]"))== flip){
-				Flip->setName(flip);
-				blockcounter ++;
 
-				if(zeile.find("ed:")){
-				
-				string ed =zeile.substr(zeile.find("ed:") +1);
-				int  help;
-				help =stoi(ed);
-				Flip->setEingaenge(help);
-				blockcounter ++;
-			
-			    }
-				if(zeile.find("tsetup:")){
-				
-				string tsetup =zeile.substr(zeile.find("tsetup:") +1);
-				int  help;
-				help =stoi(tsetup);
-				Flip->setSetupTime(help);
-				blockcounter ++;
-			
-			    }
-				if(zeile.find("thold:")){
-				
-				string thold =zeile.substr(zeile.find("thold:") +1);
-				int  help;
-				help =stoi(thold);
-				Flip->setHoldTime(help);
-				blockcounter ++;
-			
-			    }
-				if(zeile.find("cd:")){
-				
-				string cd =zeile.substr(zeile.find("cd:") +1);
-				int  help;
-				help =stoi(cd);
-				Flip->setLastKapazitaet(help);
-				blockcounter ++;
-			
-			    }
-				if(zeile.find("et:")){
+			if(in.bad() == false){
+				getline ( in , zeile );//!Zeilenweise einlesen
+				zeile.find("#begin");
+				zeile.find("[[ Bausteine]]");
+				if(zeile.substr(zeile.find("[") +1,zeile.find("]"))== flip){
+					Flip->setName(flip);
+					blockcounter ++;
 
-				blockcounter ++;
-			
-			    }
-				if(zeile.find("tpdt:")){
+					if(zeile.find("ed:")){
 				
-				string tpdt =zeile.substr(zeile.find("tpdt:") +1);
-				double  help;
-				help =stod(tpdt);
-				Flip->setGrundLaufzeit(help);
-				blockcounter ++;
+					string ed =zeile.substr(zeile.find("ed:") +1);
+					int  help;
+					help =stoi(ed);
+					Flip->setEingaenge(help);
+					blockcounter ++;
 			
-			    }
-				if(zeile.find("kl:")){
+					}
+					if(zeile.find("tsetup:")){
 				
-				string kl =zeile.substr(zeile.find("kl:") +1);
-				int  help;
-				help =stoi(kl);
-				Flip->setLastFaktor(help);
-				blockcounter ++;
+					string tsetup =zeile.substr(zeile.find("tsetup:") +1);
+					int  help;
+					help =stoi(tsetup);
+					Flip->setSetupTime(help);
+					blockcounter ++;
 			
-			    }
-				if(zeile.find("ct:")){
+					}
+					if(zeile.find("thold:")){
 				
-				string ct =zeile.substr(zeile.find("ct:") +1);
-				int  help;
-				help =stoi(ct);
-				Flip->setLastKapazitaet(help);
-				blockcounter ++;
+					string thold =zeile.substr(zeile.find("thold:") +1);
+					int  help;
+					help =stoi(thold);
+					Flip->setHoldTime(help);
+					blockcounter ++;
 			
-			    }
-				if(blockcounter == 9){
-				bibElemente.push_back(Flip);
-				blockcounter = 0;
-		    }
-			}
+					}
+					if(zeile.find("cd:")){
+				
+					string cd =zeile.substr(zeile.find("cd:") +1);
+					int  help;
+					help =stoi(cd);
+					Flip->setLastKapazitaet(help);
+					blockcounter ++;
+			
+					}
+					if(zeile.find("et:")){
+
+					blockcounter ++;
+			
+					}
+					if(zeile.find("tpdt:")){
+				
+					string tpdt =zeile.substr(zeile.find("tpdt:") +1);
+					double  help;
+					help =stod(tpdt);
+					Flip->setGrundLaufzeit(help);
+					blockcounter ++;
+			
+					}
+					if(zeile.find("kl:")){
+				
+					string kl =zeile.substr(zeile.find("kl:") +1);
+					int  help;
+					help =stoi(kl);
+					Flip->setLastFaktor(help);
+					blockcounter ++;
+			
+					}
+					if(zeile.find("ct:")){
+				
+					string ct =zeile.substr(zeile.find("ct:") +1);
+					int  help;
+					help =stoi(ct);
+					Flip->setLastKapazitaet(help);
+					blockcounter ++;
+			
+					}
+					if(blockcounter == 9){
+					bibElemente.push_back(Flip);
+					blockcounter = 0;
+				}
+				}
 			else{
-			if(zeile.find("[")){
-				Bauteil->setName(zeile.substr(zeile.find("[") +1,zeile.find("]")));
-				blockcounter ++;
-			}
-			if(zeile.find("ei:")){
+					if(zeile.find("[")){
+						Bauteil->setName(zeile.substr(zeile.find("[") +1,zeile.find("]")));
+						blockcounter ++;
+					}
+					if(zeile.find("ei:")){
 				
-				string ei =zeile.substr(zeile.find("ei:") +1);
-				int  help;
-				help =stoi(ei);
-				Bauteil->setEingaenge(help);
-				blockcounter ++;
-			}
-			if(zeile.find("tpd0:")){
+						string ei =zeile.substr(zeile.find("ei:") +1);
+						int  help;
+						help =stoi(ei);
+						Bauteil->setEingaenge(help);
+						blockcounter ++;
+					}
+					if(zeile.find("tpd0:")){
 				
-				string tpd =zeile.substr(zeile.find("tpd0:") +1);
-				double  help;
-				help =stod(tpd);
-				Bauteil->setGrundLaufzeit(help);
-				blockcounter ++;
-			}
-			if(zeile.find("kl:")){
+						string tpd =zeile.substr(zeile.find("tpd0:") +1);
+						double  help;
+						help =stod(tpd);
+						Bauteil->setGrundLaufzeit(help);
+						blockcounter ++;
+					}
+					if(zeile.find("kl:")){
 				
-				string kl =zeile.substr(zeile.find("kl:") +1);
-				int  help;
-				help =stoi(kl);
-				Bauteil->setLastFaktor(help);
-				blockcounter ++;
-			}
-			if(zeile.find("cl:")){
+						string kl =zeile.substr(zeile.find("kl:") +1);
+						int  help;
+						help =stoi(kl);
+						Bauteil->setLastFaktor(help);
+						blockcounter ++;
+					}
+					if(zeile.find("cl:")){
 				
-				string cl =zeile.substr(zeile.find("cl:") +1);
-				int  help;
-				help =stoi(cl);
-				Bauteil->setEingaenge(help);
-				blockcounter ++;
+						string cl =zeile.substr(zeile.find("cl:") +1);
+						int  help;
+						help =stoi(cl);
+						Bauteil->setEingaenge(help);
+						blockcounter ++;
+					}
+					if(blockcounter == 5){
+						bibElemente.push_back(Bauteil);
+						blockcounter = 0;
+					}
+	        }
 			}
-			if(blockcounter == 5){
-				bibElemente.push_back(Bauteil);
-				blockcounter = 0;
-		    }
-	   }
-	 }
- }
+	 else{
+			readError;
+	   	}
+    }
+  }
 }
 bool Bibliothek :: pfadEinlesen( string pfad) {
 	
