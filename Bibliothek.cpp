@@ -18,7 +18,7 @@ Bibliothek :: ~Bibliothek(){}
 string Bibliothek :: getPfad (){
 	return datei;
 }
-
+//! Übergibt einen Zeiger auf das Gatterelement
 GatterTyp* Bibliothek :: getBibElement( string typ){
 	GatterTyp* Teil;
 	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){
@@ -53,6 +53,7 @@ void Bibliothek ::dateiAusgabe(){
 	else {
 		openError;
 	}
+	in.close();
 }
 void Bibliothek ::dateiAuswerten(){
 
@@ -194,6 +195,7 @@ void Bibliothek ::dateiAuswerten(){
 	   	}
     }
   }
+  in.close();
 }
 bool Bibliothek :: pfadEinlesen( string pfad) {
 	
@@ -208,6 +210,7 @@ bool Bibliothek :: pfadEinlesen( string pfad) {
 		openError();
 		return false; 
 	}
+	in.close();
 }
 void Bibliothek :: openError(){
 	     //! Die Bibliotheksdatei existiert nicht
