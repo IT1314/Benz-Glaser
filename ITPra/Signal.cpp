@@ -14,8 +14,11 @@ using namespace std;
 Signal::Signal()
 {
 	this->signalTyp = unbekannt;
-	this->quelle = "";
-	this->quellenTyp = "";
+	/*
+	this->quelle = NULL;
+	this->quellenTyp = 0;
+	this->ziele[5] = NULL;
+	*/
 	this->anzahlZiele = 0;
 }
 
