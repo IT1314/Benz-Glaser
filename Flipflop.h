@@ -21,7 +21,7 @@ public:
 	short getLastKapazitaetClock(){return lastKapazitaetClock;}
 	void setSetupTime( short st){ setupTime = st;}
 	void setHoldTime(short ht) { holdTime = ht;}
-	void lastKapazitaetClock( short lkc) { lastKapazitaetClock = lkc;}
+	void setLastKapazitaetClock( short lkc) { lastKapazitaetClock = lkc;}
 		
 };
 
