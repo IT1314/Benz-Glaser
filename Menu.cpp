@@ -325,8 +325,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 // FUNKTIONSAUFGABE: Main funktion, startet Menue und dient zum beenden des Programms.
 
-	Menu menu;
-	menu.start();
+	meinMenu.start();
 	return 0;
 }
 

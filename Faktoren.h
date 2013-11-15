@@ -1,3 +1,5 @@
+#ifndef FAKTOREN_H
+#define FAKTOREN_H
 
 using namespace std;
 
@@ -48,3 +50,4 @@ class Faktoren
 	// ######### Methoden end ##########
 };
 
+#endif
