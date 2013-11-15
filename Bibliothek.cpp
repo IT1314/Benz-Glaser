@@ -23,7 +23,6 @@ GatterTyp* Bibliothek :: getBibElement( string typ){
 	GatterTyp* Teil;
 	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){
 		if(*it -> getName() =typ){
-		//if (**it.getName() = typ){
 			Teil = it;
 			return Teil;
 		}
