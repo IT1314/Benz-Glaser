@@ -1,9 +1,11 @@
+#include "stdafx.h"
 #include "Bibliothek.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <algorithm>
+
 
 using namespace std;
 
@@ -20,11 +22,9 @@ string Bibliothek :: getPfad (){
 }
 //! Übergibt einen Zeiger auf das Gatterelement
 GatterTyp* Bibliothek :: getBibElement( string typ){
-	GatterTyp* Teil;
 	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){
-		if(*it -> getName() =typ){
-			Teil = it;
-			return Teil;
+		if ((*it)->getName() == typ){
+			return *it;
 		}
 		
 	}
@@ -36,7 +36,7 @@ void Bibliothek ::dateiAusgabe(){
 	if(in){
 		string zeile;
 		int line = 1;
-		if(!in.eof){
+		if(!in.eof()){
 			while (!(in.eof()) ){
 				getline ( in , zeile );//!Zeilenweise einlesen
 				if(in.bad() == false){
@@ -44,22 +44,22 @@ void Bibliothek ::dateiAusgabe(){
 					line++;
 				}
 				else{
-					readError;
+					readError();
 					}
 			}
 		}
 		
 	}
 	else {
-		openError;
+		openError();
 	}
 	in.close();
 }
 void Bibliothek ::dateiAuswerten(){
 
-	   GatterTyp* Bauteil = new GatterTyp();
-	    Flipflop* Flip = new Flipflop();
-	int linecounter,blockcounter = 0;//! linecounter zaehlt die zeilen und blockcounter ueberprueft die blocklaenge.
+	   GatterTyp* Bauteil = new GatterTyp;
+	    Flipflop* Flip = new Flipflop;
+	int blockcounter = 0;//! linecounter zaehlt die zeilen und blockcounter ueberprueft die blocklaenge.
 	ifstream in (datei.c_str());
 	if(in){
 		string zeile;
@@ -191,7 +191,7 @@ void Bibliothek ::dateiAuswerten(){
 	        }
 			}
 	 else{
-			readError;
+			readError();
 	   	}
     }
   }

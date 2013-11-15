@@ -8,6 +8,11 @@
 
 using namespace std;
 
+#define BIBLIOTHEKSPFAD 1
+#define BIBLIOTHEKSDATEI_AUSGABE 2
+#define HAUPTMENUE_BIBLIOTHEK 3
+
+
 //! \brief class Bibliothek
 //!  enthaelt die Informationen zu den Gattern und Flipflops
 class Bibliothek{

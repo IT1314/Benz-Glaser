@@ -13,15 +13,15 @@ private:
 
 public:
 
-	Flipflop();
-	virtual~ Flipflop();
+	Flipflop(){};
+	virtual~ Flipflop(){};
 	virtual  bool getIsFlipflop(){return true;}
 	short getSetupTime(){return setupTime;}
 	short getHoldTime(){ return holdTime;}
 	short getLastKapazitaetClock(){return lastKapazitaetClock;}
 	void setSetupTime( short st){ setupTime = st;}
 	void setHoldTime(short ht) { holdTime = ht;}
-	void setLastKapazitaetClock( short lkc) { lastKapazitaetClock = lkc;}
+	void setlastKapazitaetClock( short lkc) { lastKapazitaetClock = lkc;}
 		
 };
 

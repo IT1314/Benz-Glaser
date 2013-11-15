@@ -17,17 +17,17 @@ protected:
 
 public:
 
-	GatterTyp();
-	 ~GatterTyp();
+	GatterTyp(){};
+	~GatterTyp(){};
 	string getName(){ return name;}
 	double getGrundlaufzeit(){ return grundLaufzeit;}
-	short getLastFaktor(){return lastFaktor}
+	short getLastFaktor(){return lastFaktor;}
 	short getLastKapazitaet(){return lastKapazitaet;}
 	short getEingaege() {return eingaenge;}
 	bool getIsFlipflop(){return false ;}//?
 	void setName(string n){name = n;}
 	void setGrundLaufzeit(double gl){grundLaufzeit = gl;}
-	void setLastFaktor(short lf){lastFaktor = fl;}
+	void setLastFaktor(short lf){lastFaktor = lf;}
 	void setLastKapazitaet(short lk){lastKapazitaet = lk;}
 	void setEingaenge(short ei){eingaenge = ei;}
 	
