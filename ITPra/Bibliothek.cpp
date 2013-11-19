@@ -214,7 +214,7 @@ bool Bibliothek :: pfadEinlesen( string pfad) {
 }
 void Bibliothek :: openError(){
 	     //! Die Bibliotheksdatei existiert nicht
-		cout << "Die Bibliotheksdatei kann nicht geöffnet werden"<<endl;
+		cout << "Die Bibliotheksdatei kann nicht geoeffnet werden"<<endl;
         
     
 
