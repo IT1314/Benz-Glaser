@@ -1,3 +1,4 @@
+/*
 #include"SchaltwerkElement.h"
 #include <string>
 using namespace std;
@@ -75,3 +76,4 @@ void SchaltwerkElement::setIsAusgangsElement(bool isAusgangsEl){
 void SchaltwerkElement::setLaufzeitEinzelgatter(double lfz){	
 	schaltwerkElementKlasse.laufzeitEinzelgatter=lfz;
 }
+*/
