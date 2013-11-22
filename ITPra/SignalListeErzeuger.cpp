@@ -106,7 +106,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 	ifstream input2 (schaltnetz_pfad.c_str());
 	string temp_substr;
 	getline(input2,zeile);
-	while(~(input2.eof))
+	while(input2.eof()== 0)
 	{
 		if(zeile.find("INPUT") != string::npos && zeile.find("s") != string::npos)
 		{
