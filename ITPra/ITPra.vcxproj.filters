@@ -42,6 +42,12 @@
     <ClInclude Include="SignalListeErzeuger.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="SchaltwerkElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bibliothek.cpp">
@@ -60,6 +66,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SchaltwerkElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenElement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
