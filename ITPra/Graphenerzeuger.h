@@ -1,6 +1,6 @@
 #ifndef GRAPHENERZEUGER_H
 #define GRAPHENERZEUGER_H
-
+/*
 #include "Bibliothek.h"
 #include "SignalListeErzeuger.h"
 
@@ -33,4 +33,5 @@ public:
 
 
 };
+*/
 #endif GRAPHENERZEUGER_H
