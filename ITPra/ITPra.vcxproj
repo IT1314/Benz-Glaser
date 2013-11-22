@@ -79,10 +79,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\SchaltwerkElement.h" />
     <ClInclude Include="Bibliothek.h" />
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
     <ClInclude Include="GatterTyp.h" />
+    <ClInclude Include="Graphenerzeuger.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Signal.h" />
     <ClInclude Include="SignalListeErzeuger.h" />
@@ -90,8 +92,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\SchaltwerkElement.cpp" />
     <ClCompile Include="Bibliothek.cpp" />
     <ClCompile Include="Faktoren.cpp" />
+    <ClCompile Include="Graphenerzeuger.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="SignalListeErzeuger.cpp" />

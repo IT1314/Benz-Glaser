@@ -1,4 +1,7 @@
-#include "GatterTyp.h"
+#ifndef SCHALTWERK_H
+#define SCHALTWERK_H
+/*
+//#include "Flipflop.h"
 #include <string>
 using namespace std;
 
@@ -41,4 +44,5 @@ class SchaltwerkElement
 		void setIsEingangsElement(bool isEingangsEl);
 		void setIsAusgangsElement(bool isAusgangsEl);
 		void setLaufzeitEinzelgatter(double lfz);
-};
+};*/
+#endif SCHALTWERK_H
