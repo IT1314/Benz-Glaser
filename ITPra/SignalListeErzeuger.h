@@ -3,6 +3,7 @@
 
 #include "Signal.h"
 #include <string>
+#include <vector>
 
 class SignalListeErzeuger 
 {
@@ -13,6 +14,7 @@ private:
 	long frequenz;				//
 
 public:
+	vector<Signal*> signalliste;
 	bool check_pfad(string pfad_eingabe);
 	std::string enter_pfad(bool* guterpfad);
 

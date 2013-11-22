@@ -54,24 +54,88 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 }
 
 void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
-{
-	vector<int> signalliste; 
+{ 
+	vector<Signal*> signalliste;
 	ifstream input (schaltnetz_pfad.c_str());
 	string zeile;
 	bool search_terminate = 0;
 	int signalnummer = 0, temp = 5, signal_counter = 0;		// temp is start position für die zeilenweise Signalsuche im Enity Kopf
-	while(zeile.find("INPUT") == string::npos && input.eof() == 0)		// signal_counter startet bei -2 wegen den 2 s in SIGNALS!
+	while(zeile.find("INPUT") == string::npos && input.eof() == 0)	
 	{ 
 		getline (input,zeile);
 	}
 	int pos;
 	while(search_terminate == 0)
 	{
-		if (zeile.find("s",temp) != string::npos)
+		if (zeile.find("s",temp) != string::npos && zeile.find("INPUT") != string::npos)
 		{
+			string temp_substr;
+			if(zeile.find(",",temp) != string::npos)
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(",")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(eingang);
+				signalliste.push_back(&temp_signal);
+			}
+			else
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(";")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(eingang);
+				signalliste.push_back(&temp_signal);
+			}
 			signal_counter++;
 			temp = zeile.find("s",temp) + 1;
 		}
+		if (zeile.find("s",temp) != string::npos && zeile.find("OUTPUT") != string::npos)
+		{
+			string temp_substr;
+			if(zeile.find(",",temp) != string::npos)
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(",")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(ausgang);
+				signalliste.push_back(&temp_signal);
+			}
+			else
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(";")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(ausgang);
+				signalliste.push_back(&temp_signal);
+			}
+			signal_counter++;
+			temp = zeile.find("s",temp) + 1;
+		}
+		if (zeile.find("s",temp) != string::npos && zeile.find("SIGNALS") != string::npos)
+		{
+			string temp_substr;
+			if(zeile.find(",",temp) != string::npos)
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(",")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(intern);
+				signalliste.push_back(&temp_signal);
+			}
+			else
+			{
+				temp_substr = zeile.substr(zeile.find("s",temp)+1,zeile.find(";")-zeile.find("s")-1);
+				Signal temp_signal;
+				temp_signal.setName(temp_substr);
+				temp_signal.setSignalTyp(intern);
+				signalliste.push_back(&temp_signal);
+			}
+			signal_counter++;
+			temp = zeile.find("s",temp) + 1;
+		}
+
+
+
 		if (zeile.find("s",temp) == string::npos )
 		{
 			getline (input,zeile);
@@ -102,26 +166,6 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
-	signalliste[signal_counter];
-	ifstream input2 (schaltnetz_pfad.c_str());
-	string temp_substr;
-	getline(input2,zeile);
-	while(~(input2.eof))
-	{
-		if(zeile.find("INPUT") != string::npos && zeile.find("s") != string::npos)
-		{
-			int temp_pos = zeile.find(",");
-			if (temp_pos == string::npos)
-			{
-				temp_substr = (zeile, zeile.find(";")-zeile.find("s"));
-			}
-		}
-
-	}
-
-
-	
-
 }
 
 
