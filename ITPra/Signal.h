@@ -4,17 +4,13 @@
 #include "stdafx.h"
 #include <string>
 
-
 #define PFAD 1
 #define AUSGABE_SCHALTNETZDATEI 2
 #define AUSGABE_SIGNALE_MENU 3
 #define AUSGABE_GRAPHSTRUKTUR 4
 #define HAUPTMENUE 5
 
-
-
 using namespace std;
-
 
 enum signalTypen 
 {
@@ -53,8 +49,5 @@ public:
 	void setQuellenTyp(string gatterTyp);
 	void zielHinzufuegen(string gatterName, int pos);
 };
-
-
-
 
 #endif SIGNAL_H

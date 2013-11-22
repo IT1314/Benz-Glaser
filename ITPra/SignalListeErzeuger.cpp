@@ -1,17 +1,16 @@
+#include "SignalListeErzeuger.h"
 
+#include "Bibliothek.h"
+#include "Signal.h"
 #include "stdafx.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Bibliothek.h"
-#include "Signal.h"
 
 using namespace std;
 
-double frequenz = 0;
-Signal* p_signal_liste;
-
-string enter_pfad(bool* guterpfad)
+string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 {
 	string pfad;
 	system("cls");
@@ -34,7 +33,7 @@ string enter_pfad(bool* guterpfad)
 	return dummy_string;
 }
 
-void Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
+void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 {
 	ifstream in (schaltnetz_pfad.c_str());
 	if(in)
@@ -53,7 +52,7 @@ void Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 	}
 }
 
-void Ausgabe_Signale(string schaltnetz_pfad)
+void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 {
 	ifstream input (schaltnetz_pfad.c_str());
 	string zeile;
@@ -101,15 +100,15 @@ void Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
-	p_signal_liste = new Signal[signal_counter]; 
-	p_signal_liste->setSignalTyp(eingang);
+	signale = new Signal[signal_counter]; 
+	signale->setSignalTyp(eingang);
 
 	
 
 }
 
 
-void Ausgabe_Graphstruktur()
+void SignalListeErzeuger::Ausgabe_Graphstruktur()
 {
 
 

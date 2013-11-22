@@ -1,6 +1,9 @@
 #include "GatterTyp.h"
+#include <string>
+using namespace std;
 
-class SchaltwerkElement{
+class SchaltwerkElement
+{
 
 
 
@@ -13,8 +16,8 @@ class SchaltwerkElement{
 		bool isEingangsElement;
 		bool isAusgangsElement;
 		short anzahlEingangssignale;
-		SchaltwerkElement(GatterTyp gTyp);
-		~SchaltwerElement();
+		SchaltwerkElement(GatterTyp* gTyp);
+		~SchaltwerkElement();
 
 		GatterTyp* typ;
 		SchaltwerkElement* nachfolgerElemente;
@@ -24,15 +27,15 @@ class SchaltwerkElement{
 	public:
 
 		string getName() ;
-		GatterTyp getTyp();
+		GatterTyp* getTyp();
 		double getLaufzeitEinzelgatter();
-		SchaltwerkElement getNachfolger(int pos);
+		SchaltwerkElement* getNachfolger(int pos);
 		int getAnzahlNachfolger();
 		short getAnzahlEingangssignale();
 		bool getIsEingangsElement();
 		bool getIsAusgagsElement();
 		void setName(string n);
-		void nachfolgerHinzufügen(SchaltwerkElement schaltwerkElement, int pos);
+		void nachfolgerHinzufügen(SchaltwerkElement* schaltwerkElement, int pos);
 		void setAnzahlNachfolger(int anzahlN);
 		void setAnzahlEingangssignale(short anzahlE);
 		void setIsEingangsElement(bool isEingangsEl);

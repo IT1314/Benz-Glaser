@@ -1,5 +1,4 @@
-#ifndef MENU_H
-#define MENU_H
+
 
 //***************** DEFINITIONS ********************************
 #define FAKTOREN 1
@@ -25,5 +24,3 @@ class Menu{
 
 };
 //***************** CLASS DECLARATIONS END *********************
-
-#endif MENU_H
