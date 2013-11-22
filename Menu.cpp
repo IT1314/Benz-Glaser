@@ -198,7 +198,7 @@ void Menu::schaltwerkMenue()
 		cout << "(1) Pfad zur Schaltnetzdatei: "; if (guterpfad == 1) {cout << schaltnetzdatei_pfad;} cout << endl;
 		cout << "(2) Ausgabe der Schaltnetzdatei" << endl;
 		cout << "(3) Ausgabe der Signale" << endl;
-		cout << "(4) Ausgabe der Fraphstruktur" << endl;
+		cout << "(4) Ausgabe der Graphstruktur" << endl;
 		cout << "(5) Hauptmenue" << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
 		unsigned int zustand = 0;
@@ -211,11 +211,15 @@ void Menu::schaltwerkMenue()
 				schaltnetzdatei_pfad = enter_pfad(&guterpfad);
 				break;
 			case AUSGABE_SCHALTNETZDATEI:
-				Ausgabe_Schaltnetzdatei();
-			case AUSGABE_SIGNALE:
-				Ausgabe_Signale();
+				if (guterpfad == 1){Ausgabe_Schaltnetzdatei(schaltnetzdatei_pfad);}
+				system("PAUSE");
+				break;
+			case AUSGABE_SIGNALE_MENU:
+				if (guterpfad == 1 ) {Ausgabe_Signale(schaltnetzdatei_pfad);}
+				break;
 			case AUSGABE_GRAPHSTRUKTUR:
 				Ausgabe_Graphstruktur();
+				break;
 			case HAUPTMENUE:
 				system("cls");
 				return;
@@ -324,8 +328,8 @@ void Menu::start()
 int _tmain(int argc, _TCHAR* argv[])
 {
 // FUNKTIONSAUFGABE: Main funktion, startet Menue und dient zum beenden des Programms.
-
-	meinMenu.start();
+	Menu startmenue;
+	startmenue.start();
 	return 0;
 }
 

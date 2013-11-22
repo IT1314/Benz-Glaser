@@ -18,8 +18,11 @@ public:
 
 bool check_pfad(string pfad_eingabe);
 string enter_pfad(bool* guterpfad);
-void Ausgabe_Schaltnetzdatei();
-void Ausgabe_Signale();
+void Ausgabe_Schaltnetzdatei(string schaltnetz_pfad);
+void Ausgabe_Signale(string schaltnetz_pfad);
 void Ausgabe_Graphstruktur();
+
+
+
 
 #endif SIGNALLISTEERZEUGER_H
