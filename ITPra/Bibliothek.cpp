@@ -1,3 +1,4 @@
+//***************** INCLUDE FILES ******************************
 #include "stdafx.h"
 #include "Bibliothek.h"
 #include <iostream>
@@ -8,7 +9,9 @@
 
 
 using namespace std;
+//***************** INCLUDE FILES END **************************
 
+// ********************** METHODEN DEKLARATION ************************
 Bibliothek :: Bibliothek(){}
 
 Bibliothek :: Bibliothek(string pfad){
@@ -59,7 +62,10 @@ void Bibliothek ::dateiAuswerten(){
 
 	   GatterTyp* Bauteil = new GatterTyp;
 	    Flipflop* Flip = new Flipflop;
-	int blockcounter = 0;//! linecounter zaehlt die zeilen und blockcounter ueberprueft die blocklaenge.
+	int blockcounter = 0;//! blockcounter ueberprueft die blocklaenge.
+
+	if( !bibElemente.empty){ //! Bibliothek wird nur erzeugt wenn die Bibliothek nicht schon erstellt ist.
+
 	ifstream in (datei.c_str());
 	if(in){
 		string zeile;
@@ -196,6 +202,10 @@ void Bibliothek ::dateiAuswerten(){
     }
   }
   in.close();
+  }
+  else{
+	  bibElemente.clear(); //! wenn die Bibliothek bereits besteht und erneut erstellt wird wird die alte Bibliothek geloescht.
+  }
 }
 bool Bibliothek :: pfadEinlesen( string pfad) {
 	
@@ -214,7 +224,7 @@ bool Bibliothek :: pfadEinlesen( string pfad) {
 }
 void Bibliothek :: openError(){
 	     //! Die Bibliotheksdatei existiert nicht
-		cout << "Die Bibliotheksdatei kann nicht geöffnet werden"<<endl;
+		cout << "Die Bibliotheksdatei kann nicht geoeffnet werden"<<endl;
         
     
 
@@ -223,3 +233,12 @@ void Bibliothek :: readError(){
          //! Die Bibliotheksdatei kann nicht gelesen werden.
 		cout << "Die Bibliotheksdatei kann nicht gelesen werden"<<endl;        
 }
+// ********************** METHODEN DEKLARATION END ********************
+
+
+
+
+
+
+
+//***************************** END OF FILE *******************************************************

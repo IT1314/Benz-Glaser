@@ -1,12 +1,15 @@
 #ifndef BIBLIOTHEK_H
 #define BIBLIOTHEK_H
 
+//***************** INCLUDE FILES ******************************
 #include <string>
 #include <vector>
 
 #include "Flipflop.h"
 
 using namespace std;
+
+//***************** INCLUDE FILES END **************************
 
 #define BIBLIOTHEKSPFAD 1
 #define BIBLIOTHEKSDATEI_AUSGABE 2
@@ -17,12 +20,18 @@ using namespace std;
 //!  enthaelt die Informationen zu den Gattern und Flipflops
 class Bibliothek{
 private :
+	// ########## Attribute #############	
 	vector<GatterTyp*> bibElemente;
 	string datei;
+	// ########## Attribute end #########
+
+	// ######### Methoden ##############
 	void openError();
 	void readError();
+	// ######### Methoden end ##########
 
 public :
+	// ######### Methoden ##############
 	Bibliothek();
 	Bibliothek( string pfad);
 	~Bibliothek();
@@ -31,7 +40,7 @@ public :
 	void dateiAusgabe();
 	void dateiAuswerten();
 	bool pfadEinlesen(string pfad);
-
+	// ######### Methoden end ##########
 	
 };
 

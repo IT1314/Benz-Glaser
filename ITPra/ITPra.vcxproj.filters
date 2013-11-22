@@ -42,10 +42,17 @@
     <ClInclude Include="SignalListeErzeuger.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="SchaltwerkElement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ListenElement.h">
+=======
+    <ClInclude Include="Graphenerzeuger.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SchaltwerkElement.h">
+>>>>>>> 64a24e568b6ad3cc61226c47795c35f5a5e3127f
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,10 +75,17 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="SchaltwerkElement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ListenElement.cpp">
+=======
+    <ClCompile Include="..\SchaltwerkElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphenerzeuger.cpp">
+>>>>>>> 64a24e568b6ad3cc61226c47795c35f5a5e3127f
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

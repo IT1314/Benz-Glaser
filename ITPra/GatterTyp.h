@@ -1,22 +1,25 @@
 #ifndef GATTERTYP_H
 #define GATTERTYP_H
-
+//***************** INCLUDE FILES ******************************
 #include <string>
 
 using namespace std;
+//***************** INCLUDE FILES END **************************
+
 //! \brief class GatterTyp
 //!  enthaelt die Grundlegenden Funktionen und Grundwerte der Gatter
 class GatterTyp{
 protected:
-
+	// ########## Attribute #############	
 	string name;
 	double grundLaufzeit;
 	short lastFaktor;
 	short lastKapazitaet;
 	short eingaenge;
-
+	// ########## Attribute end #############	
 public:
 
+	// ######### Methoden ##############
 	GatterTyp(){};
 	~GatterTyp(){};
 	string getName(){ return name;}
@@ -31,7 +34,7 @@ public:
 	void setLastKapazitaet(short lk){lastKapazitaet = lk;}
 	void setEingaenge(short ei){eingaenge = ei;}
 	
-	
+	// ######### Methoden end ##############
 };
 
 #endif GATTERTYP_H
