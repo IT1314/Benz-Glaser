@@ -36,6 +36,7 @@ class SchaltwerkElement
 		SchaltwerkElement* getNachfolger(int pos);
 		int getAnzahlNachfolger();
 		short getAnzahlEingangssignale();
+		int getnachfolgerElementesize();
 		bool getIsEingangsElement();
 		bool getIsAusgagsElement();
 		void setName(string n);
