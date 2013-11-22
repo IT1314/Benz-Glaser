@@ -80,3 +80,6 @@ void SchaltwerkElement::setIsAusgangsElement(bool isAusgangsEl){
 void SchaltwerkElement::setLaufzeitEinzelgatter(double lfz){	
 	laufzeitEinzelgatter=lfz;
 }
+int SchaltwerkElement::getnachfolgerElementesize(){
+	return nachfolgerElemente.size;
+}

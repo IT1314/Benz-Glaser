@@ -166,6 +166,29 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
+<<<<<<< HEAD
+=======
+	signalliste[signal_counter];
+	ifstream input2 (schaltnetz_pfad.c_str());
+	string temp_substr;
+	getline(input2,zeile);
+	while(input2.eof()== 0)
+	{
+		if(zeile.find("INPUT") != string::npos && zeile.find("s") != string::npos)
+		{
+			int temp_pos = zeile.find(",");
+			if (temp_pos == string::npos)
+			{
+				temp_substr = (zeile, zeile.find(";")-zeile.find("s"));
+			}
+		}
+
+	}
+
+
+	
+
+>>>>>>> cebbbf0fe2f72845f9fdc971d421bc0fa923724b
 }
 
 

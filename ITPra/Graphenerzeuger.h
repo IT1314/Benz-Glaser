@@ -1,19 +1,21 @@
 #ifndef GRAPHENERZEUGER_H
 #define GRAPHENERZEUGER_H
-/*
+
 #include "Bibliothek.h"
 #include "SignalListeErzeuger.h"
+#include "ListenElement.h"
+#include "SchaltwerkElement.h"
 
 using namespace std;
 
 class Graphenerzeuger{
 private:
 	// ########## Attribute #############	
-		Bibliothek* bibliothek();
-		ListenElement* startElement();
-		ListenElement* endElement();
-		Signal* signale();
-		short anzahlSignale();
+		Bibliothek* bibliothek;
+		ListenElement* startElement;
+		ListenElement* endElement;
+		Signal* signale;
+		short anzahlSignale;
     // ########## Attribute  end #############	
 public:
 	// ######### Methoden ##############
@@ -23,7 +25,7 @@ public:
 
 		void createList(ListenElement* objekt);
 		void createListElement(ListenElement* objekt);
-		ListenElement* searchElement(Schaltwerk objekt);
+		ListenElement* searchElement(SchaltwerkElement objekt);
 		bool checksignal();
 		void createGraph();
 		void outputGraph();
@@ -33,5 +35,5 @@ public:
 
 
 };
-*/
+
 #endif GRAPHENERZEUGER_H

@@ -1,4 +1,4 @@
-/*
+
 //***************** INCLUDE FILES ******************************
 #include "Graphenerzeuger.h"
 //***************** INCLUDE FILES  end ******************************
@@ -11,7 +11,7 @@ void Graphenerzeuger :: createList(ListenElement* objekt){
 
 	}
 	else{
-		endElement ->setnextelement(objekt);
+		endElement ->setNextElement(objekt);
 		endElement = objekt;
 	}
 }
@@ -22,12 +22,13 @@ void Graphenerzeuger :: createListElement(ListenElement* objekt){
 
 	}
 	else{
-		endElement ->setnextelement(objekt);
+		endElement ->setNextElement(objekt);
 		endElement = objekt;
 	}
 }
-ListenElement* Graphenerzeuger :: searchElement(Schaltwerk objekt){
-		for(int i =0;i <anzahlSignale; i++){
+ListenElement* Graphenerzeuger :: searchElement(SchaltwerkElement objekt){
+		for(int i =0;i < objekt.getnachfolgerElementesize(); i++){
+
 
 
 		}
@@ -45,10 +46,4 @@ void Graphenerzeuger :: outputGraph(){
 // ********************** METHODEN DEKLARATION END ********************
 
 
-
-
-
-
-
 //***************************** END OF FILE *******************************************************
-*/
