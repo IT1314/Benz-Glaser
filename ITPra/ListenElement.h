@@ -1,3 +1,6 @@
+#ifndef LISTENELEMENT_H
+#define LISTENELEMENT_H
+
 #include "SchaltwerkElement.h"
 
 class ListenElement{
@@ -15,3 +18,4 @@ class ListenElement{
 		void setNextElement(ListenElement* nextEl);
 
 };
+#endif LISTENELEMENT_H

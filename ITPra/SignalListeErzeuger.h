@@ -1,5 +1,5 @@
-#ifndef SIGNALLISTEERZEUGER_H
-#define SIGNALLISTEERZEUGER_H
+#ifndef SIGNALLISTENERZEUGER_H
+#define SIGNALLISTENERZEUGER_H
 
 #include "Signal.h"
 #include <string>
