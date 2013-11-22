@@ -23,6 +23,7 @@ using namespace std;
 Menu meinMenu;
 Faktoren meineFaktoren;
 Bibliothek meineBibliothek;
+SignalListeErzeuger meinSignalListeErzeuger;
 
 	double spannung_untermenue = 0;
 	double temperatur_untermenue = 0;
@@ -209,17 +210,17 @@ void Menu::schaltwerkMenue()
 		switch (zustand)
 		{
 			case PFAD:
-				schaltnetzdatei_pfad = enter_pfad(&guterpfad);
+				schaltnetzdatei_pfad = meinSignalListeErzeuger.enter_pfad(&guterpfad);
 				break;
 			case AUSGABE_SCHALTNETZDATEI:
-				if (guterpfad == 1){Ausgabe_Schaltnetzdatei(schaltnetzdatei_pfad);}
+				if (guterpfad == 1){meinSignalListeErzeuger.Ausgabe_Schaltnetzdatei(schaltnetzdatei_pfad);}
 				system("PAUSE");
 				break;
 			case AUSGABE_SIGNALE_MENU:
-				if (guterpfad == 1 ) {Ausgabe_Signale(schaltnetzdatei_pfad);}
+				if (guterpfad == 1 ) {meinSignalListeErzeuger.Ausgabe_Signale(schaltnetzdatei_pfad);}
 				break;
 			case AUSGABE_GRAPHSTRUKTUR:
-				Ausgabe_Graphstruktur();
+				meinSignalListeErzeuger.Ausgabe_Graphstruktur();
 				break;
 			case HAUPTMENUE:
 				system("cls");

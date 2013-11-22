@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -54,6 +55,7 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 
 void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 {
+	vector<int> signalliste; 
 	ifstream input (schaltnetz_pfad.c_str());
 	string zeile;
 	bool search_terminate = 0;
@@ -100,8 +102,23 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
-	signale = new Signal[signal_counter]; 
-	signale->setSignalTyp(eingang);
+	signalliste[signal_counter];
+	ifstream input2 (schaltnetz_pfad.c_str());
+	string temp_substr;
+	getline(input2,zeile);
+	while(~(input2.eof))
+	{
+		if(zeile.find("INPUT") != string::npos && zeile.find("s") != string::npos)
+		{
+			int temp_pos = zeile.find(",");
+			if (temp_pos == string::npos)
+			{
+				temp_substr = (zeile, zeile.find(";")-zeile.find("s"));
+			}
+		}
+
+	}
+
 
 	
 
