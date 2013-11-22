@@ -84,8 +84,13 @@
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
     <ClInclude Include="GatterTyp.h" />
+<<<<<<< HEAD
+    <ClInclude Include="ListenElement.h" />
+=======
     <ClInclude Include="Graphenerzeuger.h" />
+>>>>>>> 64a24e568b6ad3cc61226c47795c35f5a5e3127f
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="SchaltwerkElement.h" />
     <ClInclude Include="Signal.h" />
     <ClInclude Include="SignalListeErzeuger.h" />
     <ClInclude Include="stdafx.h" />
@@ -95,8 +100,13 @@
     <ClCompile Include="..\SchaltwerkElement.cpp" />
     <ClCompile Include="Bibliothek.cpp" />
     <ClCompile Include="Faktoren.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="ListenElement.cpp" />
+=======
     <ClCompile Include="Graphenerzeuger.cpp" />
+>>>>>>> 64a24e568b6ad3cc61226c47795c35f5a5e3127f
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="SchaltwerkElement.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="SignalListeErzeuger.cpp" />
     <ClCompile Include="stdafx.cpp" />
