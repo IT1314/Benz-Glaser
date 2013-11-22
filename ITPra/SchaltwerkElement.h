@@ -3,6 +3,7 @@
 
 #include "GatterTyp.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class SchaltwerkElement
@@ -23,7 +24,7 @@ class SchaltwerkElement
 		~SchaltwerkElement();
 
 		GatterTyp* typ;
-		SchaltwerkElement* nachfolgerElemente;
+		vector <SchaltwerkElement*> nachfolgerElemente;
 
 
 
@@ -38,7 +39,7 @@ class SchaltwerkElement
 		bool getIsEingangsElement();
 		bool getIsAusgagsElement();
 		void setName(string n);
-		void nachfolgerHinzufügen(SchaltwerkElement* schaltwerkElement, int pos);
+		void nachfolgerHinzufügen(SchaltwerkElement* schaltwerkElement);
 		void setAnzahlNachfolger(int anzahlN);
 		void setAnzahlEingangssignale(short anzahlE);
 		void setIsEingangsElement(bool isEingangsEl);
