@@ -20,16 +20,17 @@ class SchaltwerkElement
 		bool isEingangsElement;
 		bool isAusgangsElement;
 		short anzahlEingangssignale;
-		SchaltwerkElement(GatterTyp* gTyp);
+		
 		~SchaltwerkElement();
 
 		GatterTyp* typ;
-		vector <SchaltwerkElement*> nachfolgerElemente;
+		
 
 
 
 	public:
-
+		vector <SchaltwerkElement*> nachfolgerElemente;
+		SchaltwerkElement(GatterTyp* gTyp);
 		string getName() ;
 		GatterTyp* getTyp();
 		double getLaufzeitEinzelgatter();

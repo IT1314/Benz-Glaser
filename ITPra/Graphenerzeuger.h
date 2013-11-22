@@ -25,7 +25,6 @@ public:
 
 		void createList(ListenElement* objekt);
 		void createListElement(ListenElement* objekt);
-		ListenElement* searchElement(SchaltwerkElement objekt);
 		bool checksignal();
 		void createGraph();
 		void outputGraph();

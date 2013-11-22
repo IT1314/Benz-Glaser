@@ -1,6 +1,10 @@
 
 //***************** INCLUDE FILES ******************************
 #include "Graphenerzeuger.h"
+#include "SchaltwerkElement.h"
+#include "SignalListeErzeuger.h"
+#include "Bibliothek.h"
+
 //***************** INCLUDE FILES  end ******************************
 
 // ********************** METHODEN DEKLARATION ************************
@@ -26,18 +30,21 @@ void Graphenerzeuger :: createListElement(ListenElement* objekt){
 		endElement = objekt;
 	}
 }
-ListenElement* Graphenerzeuger :: searchElement(SchaltwerkElement objekt){
-		for(int i =0;i < objekt.getnachfolgerElementesize(); i++){
 
-
-
-		}
-
-}
 bool Graphenerzeuger:: checksignal(){
 
 }
 void Graphenerzeuger :: createGraph(){
+	vector<SchaltwerkElement>Graph;
+	
+	for (auto it = std::begin(signalliste); it!=std::end(signalliste); ++it){
+
+		string name = (*it)->getQuelleTyp() ;
+		GatterTyp* Uebergabe = getBibElement(name);
+		 Graph.push_back( SchaltwerkElement(Uebergabe)) ;
+			
+		
+	}
 
 }
 void Graphenerzeuger :: outputGraph(){
