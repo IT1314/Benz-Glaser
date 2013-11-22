@@ -79,7 +79,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\SchaltwerkElement.h" />
     <ClInclude Include="Bibliothek.h" />
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
@@ -94,7 +93,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\SchaltwerkElement.cpp" />
     <ClCompile Include="Bibliothek.cpp" />
     <ClCompile Include="Faktoren.cpp" />
     <ClCompile Include="ListenElement.cpp" />

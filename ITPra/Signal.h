@@ -1,4 +1,5 @@
-
+#ifndef SIGNAL_H
+#define SIGNAL_H
 
 #include "stdafx.h"
 #include <string>
@@ -47,3 +48,4 @@ public:
 	void zielHinzufuegen(string gatterName, int pos);
 };
 
+#endif SIGNAL_H

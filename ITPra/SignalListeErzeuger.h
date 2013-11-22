@@ -1,3 +1,6 @@
+#ifndef SIGNALLISTENERZEUGER_H
+#define SIGNALLISTENERZEUGER_H
+
 #include "Signal.h"
 
 
@@ -17,3 +20,5 @@ string enter_pfad(bool* guterpfad);
 void Ausgabe_Schaltnetzdatei();
 void Ausgabe_Signale();
 void Ausgabe_Graphstruktur();
+
+#endif SIGNALLISTENERZEUGER_H

@@ -1,3 +1,6 @@
+#ifndef SCHALTWERK_H
+#define SCHALTWERK_H
+
 #include "GatterTyp.h"
 #include <string>
 using namespace std;
@@ -42,3 +45,4 @@ class SchaltwerkElement
 		void setIsAusgangsElement(bool isAusgangsEl);
 		void setLaufzeitEinzelgatter(double lfz);
 };
+#endif SCHALTWERK_H
