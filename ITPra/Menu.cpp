@@ -276,9 +276,10 @@ void Menu::start()
 	{
 		meinMenu.menueKopf();
 		cout << "(1) aeussere Faktoren" << endl;
-		cout << "Spannung [Volt]:" << /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ endl;
-		cout << "Temperatur [Grad Celsius]:" << /*Hier kommt der Wert  if (Wert == 0)  {keine Anzeige}*/ endl; 
-		cout << "Prozess (1=slow, 2=typical, 3=fast):" << /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ endl << endl;
+		cout << "Spannung [Volt]:"; if(spannung_untermenue != 0) { cout << spannung_untermenue;} cout << endl; //!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
+		cout << "Temperatur [Grad Celsius]:" ;if(temperatur_untermenue != 0) { cout << temperatur_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert  if (Wert == 0)  {keine Anzeige}*/  
+		cout << "Prozess (1=slow, 2=typical, 3=fast):" ; if(prozess_untermenue != 0) { cout << prozess_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
+		cout << endl;
 		cout << "(2) Bibliothek" << endl;
 		cout << "Pfad zur Bibliotheksdatei:" << endl << endl;
 		cout << "(3) Schaltwerk" << endl;

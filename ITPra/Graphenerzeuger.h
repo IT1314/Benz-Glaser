@@ -8,13 +8,15 @@ using namespace std;
 
 class Graphenerzeuger{
 private:
+	// ########## Attribute #############	
 		Bibliothek* bibliothek();
 		ListenElement* startElement();
 		ListenElement* endElement();
 		Signal* signale();
 		short anzahlSignale();
-
+    // ########## Attribute  end #############	
 public:
+	// ######### Methoden ##############
 	Graphenerzeuger(){}
 	~Graphenerzeuger(){}
 		void setSignale();
@@ -25,7 +27,7 @@ public:
 		bool checksignal();
 		void createGraph();
 		void outputGraph();
-		
+		// ######### Methoden end ##############
 
 
 

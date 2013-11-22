@@ -62,7 +62,10 @@ void Bibliothek ::dateiAuswerten(){
 
 	   GatterTyp* Bauteil = new GatterTyp;
 	    Flipflop* Flip = new Flipflop;
-	int blockcounter = 0;//! linecounter zaehlt die zeilen und blockcounter ueberprueft die blocklaenge.
+	int blockcounter = 0;//! blockcounter ueberprueft die blocklaenge.
+
+	if( !bibElemente.empty){ //! Bibliothek wird nur erzeugt wenn die Bibliothek nicht schon erstellt ist.
+
 	ifstream in (datei.c_str());
 	if(in){
 		string zeile;
@@ -199,6 +202,10 @@ void Bibliothek ::dateiAuswerten(){
     }
   }
   in.close();
+  }
+  else{
+	  bibElemente.clear(); //! wenn die Bibliothek bereits besteht und erneut erstellt wird wird die alte Bibliothek geloescht.
+  }
 }
 bool Bibliothek :: pfadEinlesen( string pfad) {
 	
