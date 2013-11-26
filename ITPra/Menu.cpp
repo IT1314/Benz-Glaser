@@ -65,7 +65,7 @@ void Menu::faktorenMenue()
 		meinMenu.menueKopf();
 		cout << "Untermenue Aeussere Faktoren " << endl;
 		cout << "(1) Spannung [Volt]: "; if(spannung_untermenue != 0) { cout << spannung_untermenue;} cout << endl;
-		cout << "(2) Temperatur [Grad Celsius]: "; if(temperatur_untermenue != 0) { cout << temperatur_untermenue;} cout << endl;
+		cout << "(2) Temperatur [Grad Celsius]: "; if(temperatur_untermenue != 0) { cout << temperatur_untermenue;} cout << endl;// bedigung aendern temperatur null auch moeglich!
 		cout << "(3) Prozess (1=slow, 2=typical, 3=fast): "; if(prozess_untermenue != 0) { cout << prozess_untermenue;} cout << endl;
 		cout << "(4) Ausgabe errechneter Faktoren" << endl;
 		cout << "(5) Hauptmenue:" << endl << endl << endl;
