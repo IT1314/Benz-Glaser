@@ -64,9 +64,9 @@ void Menu::faktorenMenue()
 		system("cls");
 		meinMenu.menueKopf();
 		cout << "Untermenue Aeussere Faktoren " << endl;
-		cout << "(1) Spannung [Volt]: "; if(spannung_untermenue != 0) { cout << spannung_untermenue;} cout << endl;
-		cout << "(2) Temperatur [Grad Celsius]: "; if(temperatur_untermenue != 0) { cout << temperatur_untermenue;} cout << endl;// bedigung aendern temperatur null auch moeglich!
-		cout << "(3) Prozess (1=slow, 2=typical, 3=fast): "; if(prozess_untermenue != 0) { cout << prozess_untermenue;} cout << endl;
+		cout << "(1) Spannung [Volt]: "; if(spannung_untermenue != NULL) { cout << spannung_untermenue;} cout << endl;
+		cout << "(2) Temperatur [Grad Celsius]: "; if(temperatur_untermenue != NULL) { cout << temperatur_untermenue;} cout << endl;
+		cout << "(3) Prozess (1=slow, 2=typical, 3=fast): "; if(prozess_untermenue != NULL) { cout << prozess_untermenue;} cout << endl;
 		cout << "(4) Ausgabe errechneter Faktoren" << endl;
 		cout << "(5) Hauptmenue:" << endl << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: " << endl;
@@ -281,9 +281,9 @@ void Menu::start()
 	{
 		meinMenu.menueKopf();
 		cout << "(1) aeussere Faktoren" << endl;
-		cout << "Spannung [Volt]:"; if(spannung_untermenue != 0) { cout << spannung_untermenue;} cout << endl; //!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
-		cout << "Temperatur [Grad Celsius]:" ;if(temperatur_untermenue != 0) { cout << temperatur_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert  if (Wert == 0)  {keine Anzeige}*/  
-		cout << "Prozess (1=slow, 2=typical, 3=fast):" ; if(prozess_untermenue != 0) { cout << prozess_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
+		cout << "Spannung [Volt]:"; if(spannung_untermenue != NULL) { cout << spannung_untermenue;} cout << endl; //!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
+		cout << "Temperatur [Grad Celsius]:" ;if(temperatur_untermenue != NULL) { cout << temperatur_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert  if (Wert == 0)  {keine Anzeige}*/  
+		cout << "Prozess (1=slow, 2=typical, 3=fast):" ; if(prozess_untermenue != NULL) { cout << prozess_untermenue;} cout << endl;//!geandert /*Hier kommt der Wert if (Wert == 0)  {keine Anzeige}*/ 
 		cout << endl;
 		cout << "(2) Bibliothek" << endl;
 		cout << "Pfad zur Bibliotheksdatei:" << endl << endl;

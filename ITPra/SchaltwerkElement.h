@@ -20,7 +20,7 @@ class SchaltwerkElement
 		bool isEingangsElement;
 		bool isAusgangsElement;
 		short anzahlEingangssignale;
-		
+		vector <SchaltwerkElement*> nachfolgerElemente;
 		~SchaltwerkElement();
 
 		GatterTyp* typ;
@@ -29,7 +29,7 @@ class SchaltwerkElement
 
 
 	public:
-		vector <SchaltwerkElement*> nachfolgerElemente;
+		
 		SchaltwerkElement(GatterTyp* gTyp);
 		string getName() ;
 		GatterTyp* getTyp();
