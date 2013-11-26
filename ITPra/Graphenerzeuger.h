@@ -22,11 +22,12 @@ public:
 	Graphenerzeuger(){}
 	~Graphenerzeuger(){}
 		void setSignale();
-
-		void createList(ListenElement* objekt);
+		void  createList();
+		void destroyGraph();
 		void createListElement(ListenElement* objekt);
 		bool checksignal();
-		void createGraph();
+		SchaltwerkElement* searchListElement(string gattername);
+		ListenElement* createGraph();
 		void outputGraph();
 		// ######### Methoden end ##############
 

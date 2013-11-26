@@ -51,13 +51,10 @@ bool SchaltwerkElement::getIsAusgagsElement(){
 	return isAusgangsElement;
 }
 
+void SchaltwerkElement::nachfolgerHinzufuegen(SchaltwerkElement* schaltwerkElement, int pos){
+	nachfolgerElemente.emplace ( nachfolgerElemente.begin()+pos, schaltwerkElement );
 
-
-
-void SchaltwerkElement::nachfolgerHinzufügen(SchaltwerkElement* schaltwerkElement){
-	nachfolgerElemente.push_back(schaltwerkElement);
-
-	//Element wird an vector angefuegt
+	//Element wird in vector eingefuegt
 }
 
 

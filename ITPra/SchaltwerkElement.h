@@ -41,7 +41,7 @@ class SchaltwerkElement
 		bool getIsEingangsElement();
 		bool getIsAusgagsElement();
 		void setName(string n);
-		void nachfolgerHinzufügen(SchaltwerkElement* schaltwerkElement);
+		void nachfolgerHinzufuegen(SchaltwerkElement* schaltwerkElement, int pos);
 		void setAnzahlNachfolger(int anzahlN);
 		void setAnzahlEingangssignale(short anzahlE);
 		void setIsEingangsElement(bool isEingangsEl);
