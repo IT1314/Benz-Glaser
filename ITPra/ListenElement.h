@@ -18,5 +18,6 @@ class ListenElement{
 		void setSchaltwerkElement(SchaltwerkElement* schaltwerkEl);
 		void setNextElement(ListenElement* nextEl);
 
+
 };
 #endif LISTENELEMENT_H

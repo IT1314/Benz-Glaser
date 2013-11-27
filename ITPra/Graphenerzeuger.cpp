@@ -9,6 +9,10 @@ using namespace std;
 //***************** INCLUDE FILES  end ******************************
 
 // ********************** METHODEN DEKLARATION ************************
+ListenElement* Graphenerzeuger ::getStartElement(){
+	return startElement;
+}
+
 void Graphenerzeuger :: createList(){
 	Signal* forlauf = signale; //! Forlauf durchlaeuft das Signalarry um die Signale abzugreifen.
 	for( int a= 0; a<anzahlSignale ; forlauf++, a++){ 
@@ -53,18 +57,40 @@ void Graphenerzeuger:: destroyGraph(){
 
 SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 	SchaltwerkElement* result;
-	for (auto it = std::begin(ListenElement); it!=std::end(ListenElement); ++it){// muss hier noch irgendwie drauf zugreifen
-		if ((*it)->getName() == gattername){
-			return *it;
+	ListenElement* start =   startElement;
+	ListenElement* end   =   endElement;
+	for (ListenElement* it = start; it!=end; ++it){
+		 it->getSchaltwerkElement()= result;
+		if(result->getName() == gattername){
+			return result;
 		}
 		
 	}
 		
 }
 
-}
-bool Graphenerzeuger:: checksignal(){
 
+bool Graphenerzeuger:: checksignal(){
+	SchaltwerkElement* gatter;
+	Bibliothek* lauf;
+	string pfad;
+	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
+	cin>>pfad;
+	cout<<pfad<<endl;
+	if(check_pfad(pfad)== false){
+		cout <<"Es ist ein Fehler aufgetreten der Pfad fuehrt zu keiner Datei!"<<endl;
+	}//! aus signalliste
+
+	int n = 0;
+	for(ListenElement* it = startElement; it!=endElement; ++it,n++){
+		it->getSchaltwerkElement()= gatter;
+		if(!(lauf->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){
+			cout <<"Es ist ein Fehler aufgetreten!"<<endl;
+			cout <<"Anzahl Eingaenge laut Bibliothek: "<<lauf->getBibElement(gatter->getName())->getEingaenge()<<endl;
+			cout <<"Anzahl Eingaenge laut Schaltwerk: "<<gatter->getAnzahlEingangssignale()<<endl;
+		}
+
+	}
 }
 ListenElement* Graphenerzeuger :: createGraph(){
   
@@ -85,7 +111,7 @@ ListenElement* Graphenerzeuger :: createGraph(){
 					for( int b = 0; b<anzahl; b++){ 
 						object = searchListElement( lauf->getZiel(b)); 
 						object->setIsEingangsElement(true); 
-						object->Eingangssignalzaehlen(); //! zaehlt  die Eingangssignale hoch. 
+						object->EingangsSignalZaehlen(); //! zaehlt  die Eingangssignale hoch. 
 					}
 				}//! Ende der 1. if-Schleife
 				 
@@ -104,7 +130,7 @@ ListenElement* Graphenerzeuger :: createGraph(){
 					quelle = searchListElement(lauf->getQuelle()); //! Sucht das Quellgatter in der liste der Namen. 
 					for( int n = 0; n<anzahl; n++){ 
 						ziel = searchListElement(lauf->getZiel(n)); //! findet n-te ziel des quellgatters
-						ziel -> Eingangssignalzaehlen(); //! zaehlt das Eingangssignal hoch fuer das Zielgatters // muss ich noch ins Schaltwerk schreiben.
+						ziel -> EingangsSignalZaehlen(); //! zaehlt das Eingangssignal hoch fuer das Zielgatters // muss ich noch ins Schaltwerk schreiben.
 						quelle -> nachfolgerHinzufuegen(ziel,n); //! fuegt dem Quellgatter sein Zielgatter hinzu 
 					} //! Ende der for-Schleife 
 					quelle -> setAnzahlNachfolger(anzahl); 
@@ -128,6 +154,19 @@ ListenElement* Graphenerzeuger :: createGraph(){
 	return NULL; //! Es wird ein Nullzeiger zurueckgegeben wenn kein Graph erzeugt werden konnte. 
 }
 void Graphenerzeuger :: outputGraph(){
+	SchaltwerkElement* gatter;
+	ListenElement* start =   startElement;
+	ListenElement* end   =   endElement;
+	cout <<"Graphenstruktur"<<endl<<endl;
+	int n = 0;
+	for(ListenElement* it = start; it!=end; ++it,n++){
+		it->getSchaltwerkElement()= gatter;
+		cout <<"Gattername : "<<gatter->getName()<<endl;
+		cout <<"Gattertyp : "<< gatter->getTyp()<<endl;
+		cout <<"--> Das Gatter hat "<<gatter->getAnzahlNachfolger()<<"Ziel(e)"<<endl;
+		cout <<"Angeschlossenen Gatter :"<<gatter->getNachfolger(n)->getName()<<endl<<endl<<endl;
+	}
+
 
 }
 // ********************** METHODEN DEKLARATION END ********************

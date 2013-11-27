@@ -57,7 +57,9 @@ void SchaltwerkElement::nachfolgerHinzufuegen(SchaltwerkElement* schaltwerkEleme
 	//Element wird in vector eingefuegt
 }
 
-
+void SchaltwerkElement:: EingangsSignalZaehlen(){
+	anzahlEingangssignale ++;
+}
 
 void SchaltwerkElement::setName(string n){	
 	name=n;
@@ -78,5 +80,5 @@ void SchaltwerkElement::setLaufzeitEinzelgatter(double lfz){
 	laufzeitEinzelgatter=lfz;
 }
 int SchaltwerkElement::getnachfolgerElementesize(){
-	return nachfolgerElemente.size;
+	return nachfolgerElemente.size();
 }
