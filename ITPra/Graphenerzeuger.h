@@ -26,7 +26,7 @@ public:
 	void  createList();
 	void destroyGraph();
 	void createListElement(ListenElement* objekt);
-	bool checksignal();
+	void checksignal();
 	SchaltwerkElement* searchListElement(string gattername);
 	ListenElement* createGraph();
 	void outputGraph();
