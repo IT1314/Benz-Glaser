@@ -21,14 +21,15 @@ public:
 	// ######### Methoden ##############
 	Graphenerzeuger(){}
 	~Graphenerzeuger(){}
-		void setSignale();
-
-		void createList(ListenElement* objekt);
-		void createListElement(ListenElement* objekt);
-		ListenElement* searchElement(SchaltwerkElement objekt);
-		bool checksignal();
-		void createGraph();
-		void outputGraph();
+	ListenElement* getStartElement();
+	void setSignale();
+	void  createList();
+	void destroyGraph();
+	void createListElement(ListenElement* objekt);
+	bool checksignal();
+	SchaltwerkElement* searchListElement(string gattername);
+	ListenElement* createGraph();
+	void outputGraph();
 		// ######### Methoden end ##############
 
 

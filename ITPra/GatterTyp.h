@@ -26,7 +26,7 @@ public:
 	double getGrundlaufzeit(){ return grundLaufzeit;}
 	short getLastFaktor(){return lastFaktor;}
 	short getLastKapazitaet(){return lastKapazitaet;}
-	short getEingaege() {return eingaenge;}
+	short getEingaenge() {return eingaenge;}
 	bool getIsFlipflop(){return false ;}//?
 	void setName(string n){name = n;}
 	void setGrundLaufzeit(double gl){grundLaufzeit = gl;}

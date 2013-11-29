@@ -8,14 +8,16 @@ class ListenElement{
 	private:
 		SchaltwerkElement* schaltwerkElement;
 		ListenElement* next;
-		ListenElement();
-		~ListenElement();
+		
 	
 	public:
+		ListenElement();
+		~ListenElement();
 		SchaltwerkElement* getSchaltwerkElement();
 		ListenElement* getNextElement();
 		void setSchaltwerkElement(SchaltwerkElement* schaltwerkEl);
 		void setNextElement(ListenElement* nextEl);
+
 
 };
 #endif LISTENELEMENT_H
