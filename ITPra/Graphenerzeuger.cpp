@@ -12,11 +12,17 @@ using namespace std;
 
 // ********************** METHODEN DEKLARATION ************************
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 void Graphenerzeuger :: createList(ListenElement* objekt){
 	if(startElement == 0 ){
 		startElement = objekt;
 		endElement = objekt;
+=======
+ListenElement* Graphenerzeuger ::getStartElement(){
+	return startElement;
+}
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
 =======
 ListenElement* Graphenerzeuger ::getStartElement(){
 	return startElement;
@@ -75,9 +81,15 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 			return result;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ListenElement* dummy;
 		return dummy;
 
+=======
+		
+	}
+		
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
 =======
 		
 	}
