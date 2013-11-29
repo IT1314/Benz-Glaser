@@ -81,5 +81,5 @@ void SchaltwerkElement::setLaufzeitEinzelgatter(double lfz){
 	laufzeitEinzelgatter=lfz;
 }
 int SchaltwerkElement::getnachfolgerElementesize(){
-	return nachfolgerElemente.size;
+	return nachfolgerElemente.size();
 }

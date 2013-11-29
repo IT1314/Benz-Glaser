@@ -1,9 +1,12 @@
 
+
+/*
 //***************** INCLUDE FILES ******************************
 #include "Graphenerzeuger.h"
 //***************** INCLUDE FILES  end ******************************
 
 // ********************** METHODEN DEKLARATION ************************
+
 void Graphenerzeuger :: createList(ListenElement* objekt){
 	if(startElement == 0 ){
 		startElement = objekt;
@@ -32,6 +35,8 @@ ListenElement* Graphenerzeuger :: searchElement(SchaltwerkElement objekt){
 
 
 		}
+		ListenElement* dummy;
+		return dummy;
 
 }
 bool Graphenerzeuger:: checksignal(){
@@ -47,3 +52,4 @@ void Graphenerzeuger :: outputGraph(){
 
 
 //***************************** END OF FILE *******************************************************
+*/
