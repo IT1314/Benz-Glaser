@@ -29,9 +29,12 @@ GatterTyp* Bibliothek :: getBibElement( string typ){//! Übergibt einen Zeiger au
 		if ((*it)->getName() == typ){
 			return *it;
 		}
+		else{
+			cout << " Ist nicht im Speicher"<<endl;
+		}
 		
 	}
-	cout << " Ist nicht im Speicher"<<endl;
+	
 	return 0;	
 }
 void Bibliothek ::dateiAusgabe(){//! Ausgabe

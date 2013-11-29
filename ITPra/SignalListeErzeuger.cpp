@@ -55,6 +55,7 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 				}
 			}
 	}
+	
 }
 
 void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
