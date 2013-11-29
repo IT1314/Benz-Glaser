@@ -14,7 +14,6 @@ using namespace std;
 double temp_frequenz = 0;
 string schaltnetzpfad_local;
 
-
 string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 {
 	string pfad;
@@ -60,7 +59,6 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 { 
 	schaltnetzpfad_local = schaltnetz_pfad;
-	vector<Signal> signalliste;
 	ifstream input (schaltnetz_pfad.c_str());
 	string zeile;
 	bool search_terminate = 0;
@@ -202,10 +200,6 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 		check_for_inv1a(zeile, &signalliste);
 		getline(input,zeile);
 	}
-
-
-
-
 }
 
 bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signalliste_local)

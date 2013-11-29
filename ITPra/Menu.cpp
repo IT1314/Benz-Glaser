@@ -217,7 +217,10 @@ void Menu::schaltwerkMenue()
 				system("PAUSE");
 				break;
 			case AUSGABE_SIGNALE_MENU:
-				if (guterpfad == 1 ) {meinSignalListeErzeuger.Ausgabe_Signale(schaltnetzdatei_pfad);}
+				if (guterpfad == 1 ) 
+				{
+					meinSignalListeErzeuger.Ausgabe_Signale(schaltnetzdatei_pfad);
+				}
 				break;
 			case AUSGABE_GRAPHSTRUKTUR:
 				meinSignalListeErzeuger.Ausgabe_Graphstruktur();

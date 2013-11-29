@@ -14,7 +14,7 @@ private:
 	long frequenz;				
 
 public:
-	vector<Signal*> signalliste;
+	vector<Signal> signalliste;
 	bool check_pfad(string pfad_eingabe);
 	std::string enter_pfad(bool* guterpfad);
 
