@@ -46,7 +46,7 @@ void Graphenerzeuger:: destroyGraph(){
 	ListenElement *help2;
 	ListenElement *last = endElement;
     help1 = first;
-	while(help1 != NULL){
+	while(help1 != NULL){//! Standard delete-Schleife fuer Zeiger
 	help2 = help1 ++;
 	delete help1;
 	help1 = help2;
@@ -59,8 +59,8 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 	SchaltwerkElement* result;
 	ListenElement* start =   startElement;
 	ListenElement* end   =   endElement;
-	for (ListenElement* it = start; it!=end; ++it){
-		 it->getSchaltwerkElement()= result;
+	for (ListenElement* at = start; at!=end; ++at){//! for-Schleife die, die Suche nach dem spezifischen Element realisiert.
+		 at->getSchaltwerkElement()= result;
 		if(result->getName() == gattername){
 			return result;
 		}
@@ -75,16 +75,16 @@ bool Graphenerzeuger:: checksignal(){
 	Bibliothek* lauf;
 	string pfad;
 	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
-	cin>>pfad;
+	cin>>pfad;//! Schaltwerksdatei wird eingelesen und ueberprueft.
 	cout<<pfad<<endl;
 	if(check_pfad(pfad)== false){
 		cout <<"Es ist ein Fehler aufgetreten der Pfad fuehrt zu keiner Datei!"<<endl;
 	}//! aus signalliste
 
 	int n = 0;
-	for(ListenElement* it = startElement; it!=endElement; ++it,n++){
-		it->getSchaltwerkElement()= gatter;
-		if(!(lauf->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){
+	for(ListenElement* at = startElement; at!=endElement; ++at,n++){//! Durchlaeuft alle Elemente
+		at->getSchaltwerkElement()= gatter;
+		if(!(lauf->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
 			cout <<"Es ist ein Fehler aufgetreten!"<<endl;
 			cout <<"Anzahl Eingaenge laut Bibliothek: "<<lauf->getBibElement(gatter->getName())->getEingaenge()<<endl;
 			cout <<"Anzahl Eingaenge laut Schaltwerk: "<<gatter->getAnzahlEingangssignale()<<endl;
@@ -159,13 +159,13 @@ void Graphenerzeuger :: outputGraph(){
 	ListenElement* end   =   endElement;
 	cout <<"Graphenstruktur"<<endl<<endl;
 	int n = 0;
-	for(ListenElement* it = start; it!=end; ++it,n++){
-		it->getSchaltwerkElement()= gatter;
+	for(ListenElement* at = start; at!=end; ++at,n++){//! Durchlaeuft den Graph.
+		at->getSchaltwerkElement()= gatter;
 		cout <<"Gattername : "<<gatter->getName()<<endl;
 		cout <<"Gattertyp : "<< gatter->getTyp()<<endl;
 		cout <<"--> Das Gatter hat "<<gatter->getAnzahlNachfolger()<<"Ziel(e)"<<endl;
 		cout <<"Angeschlossenen Gatter :"<<gatter->getNachfolger(n)->getName()<<endl<<endl<<endl;
-	}
+	}//! Ausgabe des Graphen.
 
 
 }

@@ -12,20 +12,20 @@ using namespace std;
 //***************** INCLUDE FILES END **************************
 
 // ********************** METHODEN DEKLARATION ************************
-Bibliothek :: Bibliothek(){}
+Bibliothek :: Bibliothek(){}//! Konstruktor
 
-Bibliothek :: Bibliothek(string pfad){
+Bibliothek :: Bibliothek(string pfad){//! Setze Funktion
 	datei = pfad;
 }
 
-Bibliothek :: ~Bibliothek(){}
+Bibliothek :: ~Bibliothek(){}//! Destruktor
 
 string Bibliothek :: getPfad (){
 	return datei;
 }
-//! Übergibt einen Zeiger auf das Gatterelement
-GatterTyp* Bibliothek :: getBibElement( string typ){
-	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){
+
+GatterTyp* Bibliothek :: getBibElement( string typ){//! Übergibt einen Zeiger auf das Gatterelement
+	for (auto it = std::begin(bibElemente); it!=std::end(bibElemente); ++it){//! Durchlaeuft alle Elemente
 		if ((*it)->getName() == typ){
 			return *it;
 		}
@@ -34,7 +34,7 @@ GatterTyp* Bibliothek :: getBibElement( string typ){
 	cout << " Ist nicht im Speicher"<<endl;
 	return 0;	
 }
-void Bibliothek ::dateiAusgabe(){
+void Bibliothek ::dateiAusgabe(){//! Ausgabe
 	ifstream in (datei.c_str());
 	if(in){
 		string zeile;
