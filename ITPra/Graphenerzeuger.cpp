@@ -5,6 +5,8 @@
 #include "SignalListeErzeuger.h"
 #include "Bibliothek.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 using namespace std;
 //***************** INCLUDE FILES  end ******************************
 
@@ -60,7 +62,7 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 	ListenElement* start =   startElement;
 	ListenElement* end   =   endElement;
 	for (ListenElement* at = start; at!=end; ++at){//! for-Schleife die, die Suche nach dem spezifischen Element realisiert.
-		 at->getSchaltwerkElement()= result;
+		result = at->getSchaltwerkElement() ;
 		if(result->getName() == gattername){
 			return result;
 		}
@@ -74,16 +76,27 @@ bool Graphenerzeuger:: checksignal(){
 	SchaltwerkElement* gatter;
 	Bibliothek* lauf;
 	string pfad;
+	string datei;
 	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
 	cin>>pfad;//! Schaltwerksdatei wird eingelesen und ueberprueft.
 	cout<<pfad<<endl;
-	if(check_pfad(pfad)== false){
-		cout <<"Es ist ein Fehler aufgetreten der Pfad fuehrt zu keiner Datei!"<<endl;
-	}//! aus signalliste
+	ifstream in(pfad.c_str());
+
+	if(in){
+		datei = pfad;
+		in.close();
+		
+	} 
+	else{ 
+		cout << "Die Bibliotheksdatei kann nicht geoeffnet werden"<<endl;
+		 
+	}
+	in.close();
+	
 
 	int n = 0;
 	for(ListenElement* at = startElement; at!=endElement; ++at,n++){//! Durchlaeuft alle Elemente
-		at->getSchaltwerkElement()= gatter;
+		gatter = at->getSchaltwerkElement() ;
 		if(!(lauf->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
 			cout <<"Es ist ein Fehler aufgetreten!"<<endl;
 			cout <<"Anzahl Eingaenge laut Bibliothek: "<<lauf->getBibElement(gatter->getName())->getEingaenge()<<endl;
@@ -160,7 +173,7 @@ void Graphenerzeuger :: outputGraph(){
 	cout <<"Graphenstruktur"<<endl<<endl;
 	int n = 0;
 	for(ListenElement* at = start; at!=end; ++at,n++){//! Durchlaeuft den Graph.
-		at->getSchaltwerkElement()= gatter;
+		 gatter = at->getSchaltwerkElement();
 		cout <<"Gattername : "<<gatter->getName()<<endl;
 		cout <<"Gattertyp : "<< gatter->getTyp()<<endl;
 		cout <<"--> Das Gatter hat "<<gatter->getAnzahlNachfolger()<<"Ziel(e)"<<endl;
