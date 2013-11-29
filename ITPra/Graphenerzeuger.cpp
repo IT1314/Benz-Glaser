@@ -1,4 +1,6 @@
 
+
+/*
 //***************** INCLUDE FILES ******************************
 #include "Graphenerzeuger.h"
 #include "SchaltwerkElement.h"
@@ -11,9 +13,23 @@ using namespace std;
 //***************** INCLUDE FILES  end ******************************
 
 // ********************** METHODEN DEKLARATION ************************
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+void Graphenerzeuger :: createList(ListenElement* objekt){
+	if(startElement == 0 ){
+		startElement = objekt;
+		endElement = objekt;
+=======
 ListenElement* Graphenerzeuger ::getStartElement(){
 	return startElement;
 }
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
+=======
+ListenElement* Graphenerzeuger ::getStartElement(){
+	return startElement;
+}
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
 
 void Graphenerzeuger :: createList(){
 	Signal* forlauf = signale; //! Forlauf durchlaeuft das Signalarry um die Signale abzugreifen.
@@ -66,9 +82,21 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 		if(result->getName() == gattername){
 			return result;
 		}
+<<<<<<< HEAD
+<<<<<<< HEAD
+		ListenElement* dummy;
+		return dummy;
+
+=======
 		
 	}
 		
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
+=======
+		
+	}
+		
+>>>>>>> a980692a3ecee1ff17b7ebc40270624dea60fdeb
 }
 
 
@@ -185,3 +213,4 @@ void Graphenerzeuger :: outputGraph(){
 // ********************** METHODEN DEKLARATION END ********************
 
 //***************************** END OF FILE *******************************************************
+*/

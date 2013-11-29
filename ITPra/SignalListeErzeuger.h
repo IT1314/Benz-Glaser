@@ -8,10 +8,10 @@
 class SignalListeErzeuger 
 {
 private:
-	Signal* signale;			// Signaltyp (Eingang, Intern, Ausgang, Unbekannt)
-	short anzahlSignale;		// Anzahl der Elemente, an denen das Signal als Eingangssignal anliegt
-	std::string datei;			// Dateipfad
-	long frequenz;				//
+	Signal* signale;			
+	short anzahlSignale;		 
+	std::string datei;			
+	long frequenz;				
 
 public:
 	vector<Signal*> signalliste;
@@ -21,6 +21,10 @@ public:
 	void Ausgabe_Schaltnetzdatei(std::string schaltnetz_pfad);
 	void Ausgabe_Signale(std::string schaltnetz_pfad);
 	void Ausgabe_Graphstruktur();
+	bool check_for_dff(string temp_str, vector<Signal>* signalliste);
+	bool check_for_and2(string temp_str, vector<Signal>* signalliste_local);
+	bool check_for_xor2(string temp_str, vector<Signal>* signalliste_local);
+	bool check_for_inv1a(string temp_str, vector<Signal>* signalliste_local);
 };
 
 #endif SIGNALLISTEERZEUGER_H

@@ -48,6 +48,7 @@ public:
 	void setQuelle(string gatterName);
 	void setQuellenTyp(string gatterTyp);
 	void zielHinzufuegen(string gatterName, int pos);
+	void setZiel(string ziel, int pos) {this->ziele[pos] = ziel;}
 };
 
 #endif SIGNAL_H
