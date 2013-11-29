@@ -19,7 +19,7 @@ private:
     // ########## Attribute  end #############	
 public:
 	// ######### Methoden ##############
-	Graphenerzeuger(){}
+	Graphenerzeuger(Bibliothek* bib) : bibliothek(bib) {}
 	~Graphenerzeuger(){}
 	ListenElement* getStartElement();
 	void setSignale();

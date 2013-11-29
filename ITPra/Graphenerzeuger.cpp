@@ -83,7 +83,7 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 
 void Graphenerzeuger:: checksignal(){
 	SchaltwerkElement* gatter;
-	Bibliothek* lauf;
+	
 	string pfad;
 	string datei;
 	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
@@ -106,9 +106,9 @@ void Graphenerzeuger:: checksignal(){
 	int n = 0;
 	for(ListenElement* at = startElement; at!=endElement; ++at,n++){//! Durchlaeuft alle Elemente
 		gatter = at->getSchaltwerkElement() ;
-		if(!(lauf->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
+		if(!(bibliothek->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
 			cout <<"Es ist ein Fehler aufgetreten!"<<endl;
-			cout <<"Anzahl Eingaenge laut Bibliothek: "<<lauf->getBibElement(gatter->getName())->getEingaenge()<<endl;
+			cout <<"Anzahl Eingaenge laut Bibliothek: "<<bibliothek->getBibElement(gatter->getName())->getEingaenge()<<endl;
 			cout <<"Anzahl Eingaenge laut Schaltwerk: "<<gatter->getAnzahlEingangssignale()<<endl;
 		}
 
