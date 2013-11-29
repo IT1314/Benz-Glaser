@@ -166,8 +166,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
+
 	signalliste[signal_counter];
 	ifstream input2 (schaltnetz_pfad.c_str());
 	string temp_substr;
@@ -184,11 +183,6 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 		}
 
 	}
-
-
-	
-
->>>>>>> cebbbf0fe2f72845f9fdc971d421bc0fa923724b
 }
 
 
