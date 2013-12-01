@@ -24,7 +24,7 @@ using namespace std;
 //***************** MODUL GLOBAL VARIABLES *********************
 Menu meinMenu;
 Faktoren meineFaktoren;
-Bibliothek meineBibliothek;
+Bibliothek meineBibliothek("..\bib2.txt");
 SignalListeErzeuger meinSignalListeErzeuger;
 
 	double spannung_untermenue = 0;
@@ -263,7 +263,7 @@ void Menu::menueKopf()
 //**** FUNKTIONSAUFGABE: Gibt den Menuekopf auf dem Bildschirm aus
 
 	cout << "*******************************************" << endl;
-	cout << "*     IT_Projektpraktikum WS2011/2012     *" << endl;
+	cout << "*     IT_Projektpraktikum WS2013/2014     *" << endl;
 	cout << "*  Laufzeitanalyse synchroner Schaltwerke *" << endl;
 	cout << "*******************************************" << endl << endl << endl;
 }

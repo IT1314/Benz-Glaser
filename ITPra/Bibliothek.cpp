@@ -62,12 +62,12 @@ void Bibliothek ::dateiAusgabe(){//! Ausgabe
 	in.close();
 }
 void Bibliothek ::dateiAuswerten(){
-
+	ifstream in (datei.c_str());
 	   GatterTyp* Bauteil = new GatterTyp;
 	    Flipflop* Flip = new Flipflop;
 	int blockcounter = 0;//! blockcounter ueberprueft die blocklaenge.
 
-	if( !bibElemente.empty ()){ //! Bibliothek wird nur erzeugt wenn die Bibliothek nicht schon erstellt ist.
+	if( bibElemente.empty ()){ //! Bibliothek wird nur erzeugt wenn die Bibliothek nicht schon erstellt ist.
 
 	ifstream in (datei.c_str());
 	if(in){

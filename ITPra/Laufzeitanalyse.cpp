@@ -4,7 +4,7 @@
 #include "Faktoren.h"
 
 using namespace std;
-
+/*
 Graphenerzeuger meinGraphenerzeuger(Bibliothek* bib,SignalListeErzeuger* signalliste);
 
 void LaufzeitAnalyse::berechne_einzelgatter_laufzeiten(Faktoren faktoren)
@@ -36,4 +36,4 @@ void LaufzeitAnalyse::berechne_einzelgatter_laufzeiten(Faktoren faktoren)
 		listeniterator->getSchaltwerkElement()->setLaufzeitEinzelgatter(gesamtlaufzeit);
 	}
 
-}
+}*/
