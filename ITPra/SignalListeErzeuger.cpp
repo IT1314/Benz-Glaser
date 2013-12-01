@@ -24,7 +24,7 @@ string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 	ifstream in(pfad.c_str());
 	if (in)
 	{ 
-		*guterpfad = 1;
+		*guterpfad = 1;												// Hilfe für das Menu, wenn True wird der Pfad im Menue angezeigt
 		cout << endl << "Eingabe war erfolgreich!" << endl;
 		system ("pause");
 		system ("csl");
@@ -34,7 +34,7 @@ string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 	cout << endl << "Eingabe war leider nicht erfolgreich!" << endl;
 	system("pause");
 	system("cls");
-	string dummy_string = "dummy";
+	string dummy_string = "";									// return sinnlosen Wert, falls der Pfad nicht in Ordnung war. 
 	return dummy_string;
 }
 
@@ -65,7 +65,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 	string zeile;
 	bool search_terminate = 0;
 	int signalnummer = 0, temp = 5, signal_counter = 0;		// temp is start position für die zeilenweise Signalsuche im Enity Kopf
-	while(zeile.find("INPUT") == string::npos && input.eof() == 0)	
+	while(zeile.find("INPUT") == string::npos && input.eof() == 0)			// Liest so lange ein, bis er INPUT findet
 	{ 
 		getline (input,zeile);
 	}
@@ -79,7 +79,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			{
 				temp_substr = zeile.substr(zeile.find("s",temp),zeile.find(",")-zeile.find("s"));
 				Signal temp_signal;
-				temp_signal.setName(temp_substr);
+				temp_signal.setName(temp_substr);		// Eingangssignale speichern vom Typ "sxxx,"
 				temp_signal.setSignalTyp(eingang);
 				signalliste.push_back(temp_signal);
 			}
@@ -87,7 +87,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			{
 				temp_substr = zeile.substr(zeile.find("s",temp),zeile.find(";")-zeile.find("s"));
 				Signal temp_signal;
-				temp_signal.setName(temp_substr);
+				temp_signal.setName(temp_substr);		// Eingangssignale speichern vom Typ "sxxx;" (letztes Signal)
 				temp_signal.setSignalTyp(eingang);
 				signalliste.push_back(temp_signal);
 			}
@@ -102,7 +102,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			{
 				temp_substr = zeile.substr(zeile.find("s",temp),zeile.find(",")-zeile.find("s"));
 				Signal temp_signal;
-				temp_signal.setName(temp_substr);
+				temp_signal.setName(temp_substr);		//Ausgangssignale speichern "sxxx,"
 				temp_signal.setSignalTyp(ausgang);
 				signalliste.push_back(temp_signal);
 			}
@@ -110,7 +110,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			{
 				temp_substr = zeile.substr(zeile.find("s",temp),zeile.find(";")-zeile.find("s"));
 				Signal temp_signal;
-				temp_signal.setName(temp_substr);
+				temp_signal.setName(temp_substr);		// Ausgangssignale speichern "sxxx;"
 				temp_signal.setSignalTyp(ausgang);
 				signalliste.push_back(temp_signal);
 			}
@@ -146,7 +146,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 		if (nur_einmal_anlegen == 0)
 		{
 			Signal clk_signal;
-			clk_signal.setSignalTyp(eingang);
+			clk_signal.setSignalTyp(eingang);		// Clock Signal wird hinzugefuegt und als Eingang definiert
 			clk_signal.setName("clk");
 			signalliste.push_back(clk_signal);
 			nur_einmal_anlegen = 1;
@@ -194,6 +194,7 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 	{
 		getline(input,zeile);
 	}
+// ********************* Geht das Dokument durch und sucht nach D-Flip-Flop, Und- Oder Gatter und Invertern
 	while (zeile.find("END") == string::npos)
 	{
 		check_for_dff(zeile, &signalliste);
@@ -220,10 +221,12 @@ bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signall
 	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));
 
 	komma = temp_str.find(",");
-	// if temp_str if "g001:dff(s013,clk,s009); z.B. dann ist Quelle = s009, ziel_i = s013 und ziel_i_plus_1 = clk
-	quelle = temp_str.substr(temp_str.find(",",komma+1)+1,temp_str.find(")")-temp_str.find(",",komma+1)-1);
+	// Falls temp_str = "g001:dff(s013,clk,s009);" z.B. dann ist Quelle = s009, ziel_i = s013 und ziel_i_plus_1 = clk
+	quelle = temp_str.substr(temp_str.find(",",komma+1)+1,temp_str.find(")")-temp_str.find(",",komma+1)-1);		
 	ziel_i = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);
 	ziel_i_plus_1 = temp_str.substr(temp_str.find(",")+1,temp_str.find(",",temp_str.find(",")+1)-temp_str.find(",")-1);
+	
+//************************** Geht die Signalliste durch und sucht nach der Quelle und den Zielen **********************
 	for (unsigned int counter = 0; counter < signalliste_local->size(); counter++)
 	{
 		if (signalliste_local->at(counter).getName() == quelle)
@@ -237,7 +240,7 @@ bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signall
 			bool found_place = 0;
 			while (counter2 < 5 && found_place == 0)
 			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
+				if (signalliste_local->at(counter).getZiel(counter2) == "")		// Speichert das Ziel nur, wenn der String noch leer ist
 				{
 					signalliste_local->at(counter).setZiel(gatter,counter2);
 					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
@@ -271,7 +274,7 @@ bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signall
 	return 1;
 }
 
-
+// Wie Check_for_dff nur halt mit "and2"
 bool SignalListeErzeuger::check_for_and2(string temp_str, vector<Signal>* signalliste_local)
 {
 	if (temp_str.find("and2") == string::npos)
@@ -335,7 +338,7 @@ bool SignalListeErzeuger::check_for_and2(string temp_str, vector<Signal>* signal
 	return 1;
 }
 
-
+// Wie check_for_dff nur mit "xor2"
 bool SignalListeErzeuger::check_for_xor2(string temp_str, vector<Signal>* signalliste_local)
 {
 	if (temp_str.find("xor2") == string::npos)
@@ -399,7 +402,7 @@ bool SignalListeErzeuger::check_for_xor2(string temp_str, vector<Signal>* signal
 	return 1;
 }
 
-
+// Wie check_for_dff nur mit 2 Signalen und "inv1a"
 bool SignalListeErzeuger::check_for_inv1a(string temp_str, vector<Signal>* signalliste_local)
 {
 	if (temp_str.find("inv1a") == string::npos)

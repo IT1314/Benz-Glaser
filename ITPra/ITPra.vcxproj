@@ -83,6 +83,7 @@
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
     <ClInclude Include="GatterTyp.h" />
+    <ClInclude Include="Laufzeitanalyse.h" />
     <ClInclude Include="ListenElement.h" />
     <ClInclude Include="Graphenerzeuger.h" />
     <ClInclude Include="Menu.h" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="Bibliothek.cpp" />
     <ClCompile Include="Faktoren.cpp" />
+    <ClCompile Include="Laufzeitanalyse.cpp" />
     <ClCompile Include="ListenElement.cpp" />
     <ClCompile Include="Graphenerzeuger.cpp" />
     <ClCompile Include="Menu.cpp" />
