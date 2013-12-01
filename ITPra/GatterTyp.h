@@ -37,4 +37,4 @@ public:
 	// ######### Methoden end ##############
 };
 
-#endif GATTERTYP_H
+#endif //GATTERTYP_H

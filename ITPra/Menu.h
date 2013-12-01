@@ -16,6 +16,7 @@ class Menu{
 		Menu();
 		~Menu();
 		void start();
+	private:
 		void faktorenMenue();
 		void bibliothekMenue();
 		void schaltwerkMenue();
@@ -25,4 +26,4 @@ class Menu{
 
 };
 //***************** CLASS DECLARATIONS END *********************
-#endif MENU_H
+#endif // MENU_H

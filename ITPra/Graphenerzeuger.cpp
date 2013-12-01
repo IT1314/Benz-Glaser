@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 using namespace std;
 //***************** INCLUDE FILES  end ******************************
 
@@ -20,6 +21,7 @@ using namespace std;
 
 
 void Graphenerzeuger :: createList(){
+	
 	
 	for(  auto it = signallisteerzeug->signalliste.begin(); it != signallisteerzeug->signalliste.end() ; ++it){  
 		
@@ -48,8 +50,8 @@ void Graphenerzeuger :: createListElement(ListenElement* objekt){
 }
 void Graphenerzeuger:: destroyGraph(){
 	ListenElement *first = startElement;
-    ListenElement *help1;
-	ListenElement *help2;
+    ListenElement *help1 = new ListenElement;
+	ListenElement *help2= new ListenElement;
 	ListenElement *last = endElement;
     help1 = first;
 	while(help1 != NULL){//! Standard delete-Schleife fuer Zeiger
@@ -77,7 +79,7 @@ SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 
 void Graphenerzeuger:: checksignal(){
 	SchaltwerkElement* gatter;
-	
+	ListenElement* at = startElement;
 	string pfad;
 	string datei;
 	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
@@ -95,18 +97,20 @@ void Graphenerzeuger:: checksignal(){
 		 
 	}
 	in.close();
-	
-
-	int n = 0;
-	for(ListenElement* at = startElement; at!=endElement; ++at,n++){//! Durchlaeuft alle Elemente
-		gatter = at->getSchaltwerkElement() ;
-		if(!(bibliothek->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
+		
+	gatter = at->getSchaltwerkElement() ;
+		while(at != 0){
+			
+			if(!(bibliothek->getBibElement(gatter->getName())->getEingaenge() == gatter->getAnzahlEingangssignale())){//! Detektion auf Fehler.
 			cout <<"Es ist ein Fehler aufgetreten!"<<endl;
 			cout <<"Anzahl Eingaenge laut Bibliothek: "<<bibliothek->getBibElement(gatter->getName())->getEingaenge()<<endl;
 			cout <<"Anzahl Eingaenge laut Schaltwerk: "<<gatter->getAnzahlEingangssignale()<<endl;
+		    }
+			at = at->getNextElement();
 		}
+		
 
-	}
+	
 }
 ListenElement* Graphenerzeuger :: createGraph(){
   
@@ -118,8 +122,15 @@ ListenElement* Graphenerzeuger :: createGraph(){
 		
 		createList();
 		int a = 0;
-		for( auto it = signallisteerzeug->signalliste.begin(); it != signallisteerzeug->signalliste.end() ; ++it,a++){ 
+
+ 
 			//! Ueberprueft ob die Signale benutzt werden oder nicht.
+		
+		auto it = signallisteerzeug->signalliste.begin();
+
+		
+			while( it  != signallisteerzeug->signalliste.end()){
+			
 			if(!((it->getAnzahlZiele() == 0) && (it->getQuelle() == "") && (it->getQuellenTyp() == "") )){ //! Die Eingangssignale werden hier erkannt und als solche in die Eingangselemente abgelegt.
 				if( it->getSignalTyp() == eingang ){ 
 					int anzahl = it->getAnzahlZiele(); 
@@ -159,9 +170,10 @@ ListenElement* Graphenerzeuger :: createGraph(){
 				cout << " Ihr Graph wurde geloescht auf grund dieses Fehlers" << endl;
 				destroyGraph();
 				return NULL; } 
+			it ++;
 		}  //! Ende der for-Schleife
 		 //! Ueberpruefung ob offene Eingaenge vorhanden sind
-		 checksignal();
+		// checksignal();auskommetniet wegen speicher fehler
 		return startElement; 
 	}
 	else{
@@ -172,15 +184,19 @@ ListenElement* Graphenerzeuger :: createGraph(){
 void Graphenerzeuger :: outputGraph(){
 	SchaltwerkElement* gatter;
 	ListenElement* start =   startElement;
+	ListenElement* at = start;
 	ListenElement* end   =   endElement;
 	cout <<"Graphenstruktur"<<endl<<endl;
 	int n = 0;
-	for(ListenElement* at = start; at!=end; ++at,n++){//! Durchlaeuft den Graph.
+	while(at!=0){//! Durchlaeuft den Graph.
+	
 		 gatter = at->getSchaltwerkElement();
 		cout <<"Gattername : "<<gatter->getName()<<endl;
 		cout <<"Gattertyp : "<< gatter->getTyp()<<endl;
 		cout <<"--> Das Gatter hat "<<gatter->getAnzahlNachfolger()<<"Ziel(e)"<<endl;
 		cout <<"Angeschlossenen Gatter :"<<gatter->getNachfolger(n)->getName()<<endl<<endl<<endl;
+		at = at->getNextElement();
+
 	}//! Ausgabe des Graphen.
 
 

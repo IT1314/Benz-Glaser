@@ -49,4 +49,4 @@ class SchaltwerkElement
 		void setIsAusgangsElement(bool isAusgangsEl);
 		void setLaufzeitEinzelgatter(double lfz);
 };
-#endif SCHALTWERK_H
+#endif //SCHALTWERK_H

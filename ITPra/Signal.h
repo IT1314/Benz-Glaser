@@ -51,4 +51,4 @@ public:
 	void setZiel(string ziel, int pos) {this->ziele[pos] = ziel;}
 };
 
-#endif SIGNAL_H
+#endif //SIGNAL_H

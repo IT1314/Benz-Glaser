@@ -38,4 +38,4 @@ public:
 
 };
 
-#endif GRAPHENERZEUGER_H
+#endif //GRAPHENERZEUGER_H

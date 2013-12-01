@@ -28,4 +28,4 @@ public:
 	// ######### Methoden end ##############
 };
 
-#endif FLIPFLOP_H
+#endif //FLIPFLOP_H

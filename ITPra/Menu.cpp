@@ -3,7 +3,7 @@
 //
 
 //***************** INCLUDE FILES ******************************
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <iostream>
 #include <math.h>
 #include <fstream>
@@ -14,7 +14,8 @@
 #include "SignalListeErzeuger.h"
 #include "Graphenerzeuger.h"
 #include "Bibliothek.h"
-//#include "SchaltwerkElement.h"
+#include "SchaltwerkElement.h"
+#include "main"
 using namespace std;
 //***************** INCLUDE FILES END **************************
 
@@ -172,6 +173,7 @@ void Menu::bibliothekMenue()
 
 				break;
 			case BIBLIOTHEKSDATEI_AUSGABE:
+				meineBibliothek.dateiAuswerten();
 				meineBibliothek.dateiAusgabe();
 				system("pause");
 				break;
@@ -205,6 +207,7 @@ void Menu::schaltwerkMenue()
 		cout << "(4) Ausgabe der Graphstruktur" << endl;
 		cout << "(5) Hauptmenue" << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
+		meineBibliothek.dateiAuswerten();
 		Graphenerzeuger Graph (&meineBibliothek,&meinSignalListeErzeuger);
 		unsigned int zustand = 0;
 		string eingabe;
@@ -239,28 +242,7 @@ void Menu::schaltwerkMenue()
 			default:
 				break;
 		}
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+					
 	}
 }
 
@@ -338,7 +320,7 @@ void Menu::start()
 
 
 //***************** FUNCTIONS AND METHODS DECLARATIONS END *****
-
+/*
 int _tmain(int argc, _TCHAR* argv[])
 {
 // FUNKTIONSAUFGABE: Main funktion, startet Menue und dient zum beenden des Programms.
@@ -346,7 +328,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	startmenue.start();
 	return 0;
 }
-
+*/
 
 
 

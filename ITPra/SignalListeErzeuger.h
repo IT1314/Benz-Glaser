@@ -27,4 +27,4 @@ public:
 	bool check_for_inv1a(string temp_str, vector<Signal>* signalliste_local);
 };
 
-#endif SIGNALLISTEERZEUGER_H
+#endif //SIGNALLISTEERZEUGER_H

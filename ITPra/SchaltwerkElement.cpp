@@ -1,16 +1,18 @@
 #include"SchaltwerkElement.h"
 #include <string>
+#include "Bibliothek.h"
+
 using namespace std;
 	
 		
 SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp){
 
-	name="";		
-	laufzeitEinzelgatter=0.0;
-	anzahlNachfolger=0;
-	isEingangsElement=0;
-	isAusgangsElement=0;
-	anzahlEingangssignale=0;
+	name=(*gTyp).getName();		
+	laufzeitEinzelgatter;
+	anzahlNachfolger;
+	isEingangsElement;
+	isAusgangsElement;
+	anzahlEingangssignale=(*gTyp).getEingaenge();
 	
 	typ=gTyp;
 	vector <SchaltwerkElement*> nachfolgerElemente;

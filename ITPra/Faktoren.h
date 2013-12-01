@@ -50,4 +50,4 @@ class Faktoren
 	// ######### Methoden end ##########
 };
 
-#endif FAKTOREN_H
+#endif //FAKTOREN_H
