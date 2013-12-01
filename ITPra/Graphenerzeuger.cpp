@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 //***************** INCLUDE FILES  end ******************************
 
@@ -19,15 +20,15 @@ using namespace std;
 
 
 void Graphenerzeuger :: createList(){
-	Signal* forlauf = signale; //! Forlauf durchlaeuft das Signalarry um die Signale abzugreifen.
-	for( int a= 0; a<anzahlSignale ; forlauf++, a++){ 
+	
+	for(  auto it = signallisteerzeug->signalliste.begin(); it != signallisteerzeug->signalliste.end() ; ++it){  
 		
-		if(!(forlauf->getQuelle() == "")){ //! Verhindert das Einfuegen wenn die Quelle leer ist.
+		if(!(it->getQuelle() == "")){ //! Verhindert das Einfuegen wenn die Quelle leer ist.
 			
 			ListenElement* uebergabe = new ListenElement();			
-			GatterTyp* typus = bibliothek->getBibElement(forlauf->getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
+			GatterTyp* typus = bibliothek->getBibElement(it->getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
 			SchaltwerkElement* object2 = new SchaltwerkElement(typus);
-			object2->setName(forlauf->getQuelle()); //! set Methoden werden aufgerufen
+			object2->setName(it->getQuelle()); //! set Methoden werden aufgerufen
 			uebergabe->setSchaltwerkElement(object2); 
 			uebergabe->setNextElement(NULL); 
 			createListElement(uebergabe);
@@ -61,21 +62,14 @@ void Graphenerzeuger:: destroyGraph(){
 }
 
 SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
-	SchaltwerkElement* result;
 	ListenElement* start =   startElement;
-	ListenElement* end   =   endElement;
-	for (ListenElement* at = start; at!=end; ++at){//! for-Schleife die, die Suche nach dem spezifischen Element realisiert.
-		result = at->getSchaltwerkElement() ;
-		if(result->getName() == gattername){
-			return result;
-		}
-
-		
+	while( start != 0 ) {
+		if(start->getSchaltwerkElement()->getName() == gattername)
+			return start->getSchaltwerkElement();
+		start = start->getNextElement();
 	}
-		
-
-		
-	}
+	return 0;
+}
 		
 
 
@@ -116,48 +110,48 @@ void Graphenerzeuger:: checksignal(){
 }
 ListenElement* Graphenerzeuger :: createGraph(){
   
-	if( ((bibliothek != NULL)) && (signale != NULL) && (anzahlSignale != 0) ){ //! Sicherheitsabfrage ob alle Daten zur erzeugung vorliegen.
+	if( ((bibliothek != NULL)) && (signallisteerzeug != NULL) ){ //! Sicherheitsabfrage ob alle Daten zur erzeugung vorliegen.
 		
 		if( startElement != NULL){
 			destroyGraph(); //! Falls bereits ein Graph vorhanden ist im Speicher wird dieser ueber die destroy Methode zerstoert bevor der neue angelegt wird.
 		} 
-
+		
 		createList();
-		Signal* lauf = signale; //! Zeiger der die Signale durchlaeuft
-		for( int a= 0; a<anzahlSignale ; lauf++, a++){ 
+		int a = 0;
+		for( auto it = signallisteerzeug->signalliste.begin(); it != signallisteerzeug->signalliste.end() ; ++it,a++){ 
 			//! Ueberprueft ob die Signale benutzt werden oder nicht.
-			if(!((lauf->getAnzahlZiele() == 0) && (lauf->getQuelle() == "") && (lauf->getQuellenTyp() == "") )){ //! Die Eingangssignale werden hier erkannt und als solche in die Eingangselemente abgelegt.
-				if( lauf->getSignalTyp() == eingang ){ 
-					int anzahl = lauf->getAnzahlZiele(); 
+			if(!((it->getAnzahlZiele() == 0) && (it->getQuelle() == "") && (it->getQuellenTyp() == "") )){ //! Die Eingangssignale werden hier erkannt und als solche in die Eingangselemente abgelegt.
+				if( it->getSignalTyp() == eingang ){ 
+					int anzahl = it->getAnzahlZiele(); 
 					SchaltwerkElement* object; 
 					for( int b = 0; b<anzahl; b++){ 
-						object = searchListElement( lauf->getZiel(b)); 
+						object = searchListElement( it->getZiel(b)); 
 						object->setIsEingangsElement(true); 
 						object->EingangsSignalZaehlen(); //! zaehlt  die Eingangssignale hoch. 
 					}
 				}//! Ende der 1. if-Schleife
 				 
-				if( lauf->getSignalTyp() == ausgang){//! Die Ausgangssignale werden hier erkannt und als solche in die Ausgangselemente abgelegt.
+				if( it->getSignalTyp() == ausgang){//! Die Ausgangssignale werden hier erkannt und als solche in die Ausgangselemente abgelegt.
 					SchaltwerkElement* object;
-					object = searchListElement( lauf->getQuelle());
+					object = searchListElement( it->getQuelle());
 					object->setIsAusgangsElement(true); 
 				} //! Ende der 2. if-Schleife
 
 				
-				if(lauf->getSignalTyp() == intern){//! Hier werden die Internen Signale erkannt und die entsprechenden Elemente befuellt.
+				if(it->getSignalTyp() == intern){//! Hier werden die Internen Signale erkannt und die entsprechenden Elemente befuellt.
 
-					int anzahl = lauf->getAnzahlZiele(); 
+					int anzahl = it->getAnzahlZiele(); 
 					SchaltwerkElement* quelle; //! Quellgatter
 					SchaltwerkElement* ziel; //! Zielgatter				 
-					quelle = searchListElement(lauf->getQuelle()); //! Sucht das Quellgatter in der liste der Namen. 
+					quelle = searchListElement(it->getQuelle()); //! Sucht das Quellgatter in der liste der Namen. 
 					for( int n = 0; n<anzahl; n++){ 
-						ziel = searchListElement(lauf->getZiel(n)); //! findet n-te ziel des quellgatters
+						ziel = searchListElement(it->getZiel(n)); //! findet n-te ziel des quellgatters
 						ziel -> EingangsSignalZaehlen(); //! zaehlt das Eingangssignal hoch fuer das Zielgatters // muss ich noch ins Schaltwerk schreiben.
 						quelle -> nachfolgerHinzufuegen(ziel,n); //! fuegt dem Quellgatter sein Zielgatter hinzu 
 					} //! Ende der for-Schleife 
 					quelle -> setAnzahlNachfolger(anzahl); 
 				}  //! Ende der 3. if-Schleife
-				if(lauf->getSignalTyp() == unbekannt){ 
+				if(it->getSignalTyp() == unbekannt){ 
 					cout << " Es wurde ein unbekanntes Signal entdeckt" << endl; 
 				} 
 			}else{ 

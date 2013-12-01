@@ -14,12 +14,13 @@ private:
 		Bibliothek* bibliothek;
 		ListenElement* startElement;
 		ListenElement* endElement;
-		Signal* signale;
-		short anzahlSignale;
+		SignalListeErzeuger* signallisteerzeug;
+	/*	Signal* signale;
+		short anzahlSignale;*/
     // ########## Attribute  end #############	
 public:
 	// ######### Methoden ##############
-	Graphenerzeuger(Bibliothek* bib) : bibliothek(bib) {}
+	Graphenerzeuger(Bibliothek* bib,SignalListeErzeuger* signalliste) : bibliothek(bib),signallisteerzeug(signalliste) {}
 	~Graphenerzeuger(){}
 	ListenElement* getStartElement();
 	void setSignale();

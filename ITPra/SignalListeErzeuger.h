@@ -8,13 +8,13 @@
 class SignalListeErzeuger 
 {
 private:
-	Signal* signale;			
+			
 	short anzahlSignale;		 
 	std::string datei;			
 	long frequenz;				
 
 public:
-	vector<Signal> signalliste;
+	std::vector<Signal> signalliste;
 	bool check_pfad(string pfad_eingabe);
 	std::string enter_pfad(bool* guterpfad);
 

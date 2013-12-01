@@ -12,6 +12,7 @@
 #include "Menu.h"
 #include "Faktoren.h"
 #include "SignalListeErzeuger.h"
+#include "Graphenerzeuger.h"
 #include "Bibliothek.h"
 //#include "SchaltwerkElement.h"
 using namespace std;
@@ -181,6 +182,7 @@ void Menu::bibliothekMenue()
 				break;
 		}
 	}
+	meineBibliothek.dateiAuswerten();
 }
 
 
@@ -203,6 +205,7 @@ void Menu::schaltwerkMenue()
 		cout << "(4) Ausgabe der Graphstruktur" << endl;
 		cout << "(5) Hauptmenue" << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
+		Graphenerzeuger Graph (&meineBibliothek,&meinSignalListeErzeuger);
 		unsigned int zustand = 0;
 		string eingabe;
 		cin >> eingabe;
@@ -221,9 +224,14 @@ void Menu::schaltwerkMenue()
 				{
 					meinSignalListeErzeuger.Ausgabe_Signale(schaltnetzdatei_pfad);
 				}
+				system("pause");
 				break;
 			case AUSGABE_GRAPHSTRUKTUR:
-				meinSignalListeErzeuger.Ausgabe_Graphstruktur();
+				
+				
+				Graph.createGraph();
+				Graph.outputGraph();
+				system("pause");
 				break;
 			case HAUPTMENUE:
 				system("cls");
