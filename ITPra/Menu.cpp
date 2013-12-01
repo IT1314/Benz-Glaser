@@ -251,6 +251,10 @@ void Menu::analyse()
 //**** FUNKTIONSAUFGABE: Enthält alle Funktionen/Methoden für die Analyse
 
 	system("cls");
+	cout << "ANALYSE" << endl << endl << endl;	//Der ganze Block wird durch das Analyse Modul ersetzt!!!
+	system("pause");
+	system("cls");
+
 	
 }
 
