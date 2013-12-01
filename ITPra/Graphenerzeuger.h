@@ -15,8 +15,7 @@ private:
 		ListenElement* startElement;
 		ListenElement* endElement;
 		SignalListeErzeuger* signallisteerzeug;
-	/*	Signal* signale;
-		short anzahlSignale;*/
+	
     // ########## Attribute  end #############	
 public:
 	// ######### Methoden ##############

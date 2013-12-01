@@ -3,8 +3,9 @@
 #include "GatterTyp.h"
 #include "Faktoren.h"
 
+using namespace std;
 
-Graphenerzeuger meinGraphenerzeuger;
+Graphenerzeuger meinGraphenerzeuger(Bibliothek* bib,SignalListeErzeuger* signalliste);
 
 void LaufzeitAnalyse::berechne_einzelgatter_laufzeiten(Faktoren faktoren)
 {

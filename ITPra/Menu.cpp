@@ -15,7 +15,7 @@
 #include "Graphenerzeuger.h"
 #include "Bibliothek.h"
 #include "SchaltwerkElement.h"
-#include "main"
+#include "main.h"
 using namespace std;
 //***************** INCLUDE FILES END **************************
 

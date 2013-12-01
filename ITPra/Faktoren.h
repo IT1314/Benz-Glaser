@@ -1,6 +1,6 @@
 #ifndef FAKTOREN_H
 #define FAKTOREN_H
-
+#include <vector>
 using namespace std;
 
 #define SPANNUNG 1
