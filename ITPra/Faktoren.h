@@ -43,6 +43,9 @@ class Faktoren
 		double getTemperatur();
 		short getProzess();
 		void getFaktore(double spgFaktor, double tmpFaktor, double przFaktor);
+		double get_spannungs_faktor() {return spannungFaktor;}
+		double get_temperatur_faktor() {return temperaturFaktor;}
+		double get_prozess_faktor() {return prozessFaktor;}
 		bool setSpannung(double spannung);
 		bool setTemperatur(double temperatur);
 		bool setProzess(short prozess);
