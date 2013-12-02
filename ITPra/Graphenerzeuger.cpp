@@ -17,25 +17,30 @@ using namespace std;
 // ********************** METHODEN DEKLARATION ************************
 
 
-
+ListenElement*  Graphenerzeuger :: getStartElement(){
+	return startElement;
+}
 
 
 void Graphenerzeuger :: createList(){
+	vector<Signal>* start =  signallisteerzeug->signalliste.begin();
 	
 	
-	for(  auto it = signallisteerzeug->signalliste.begin(); it != signallisteerzeug->signalliste.end() ; ++it){  
+	while( start != 0 ) {
+	  
 		
-		if(!(it->getQuelle() == "")){ //! Verhindert das Einfuegen wenn die Quelle leer ist.
+		
 			
 			ListenElement* uebergabe = new ListenElement();			
-			GatterTyp* typus = bibliothek->getBibElement(it->getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
+			GatterTyp* typus = bibliothek->getBibElement(start->getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
 			SchaltwerkElement* object2 = new SchaltwerkElement(typus);
-			object2->setName(it->getQuelle()); //! set Methoden werden aufgerufen
+			object2->setName(start->getQuelle()); //! set Methoden werden aufgerufen
 			uebergabe->setSchaltwerkElement(object2); 
 			uebergabe->setNextElement(NULL); 
 			createListElement(uebergabe);
-		} //! Ende der if-Schleife
-	} //! Ende der for-Schleife 
+			start = start->getNextElement();
+		
+	} //! Ende der while-Schleife 
 }
 void Graphenerzeuger :: createListElement(ListenElement* objekt){
 	if(startElement ==NULL && endElement == NULL){//! Wenn die Liste leer ist wird sie angelegt.
@@ -85,19 +90,32 @@ void Graphenerzeuger:: checksignal(){
 	cout <<"Pfad und Name der Schaltwerksdatei (ABBRUCH = 'EXIT')"<<endl<<endl;
 	cin>>pfad;//! Schaltwerksdatei wird eingelesen und ueberprueft.
 	cout<<pfad<<endl;
-	ifstream in(pfad.c_str());
+	
+	
 
+	ifstream in(pfad.c_str());
 	if(in){
-		datei = pfad;
+		
 		in.close();
 		
 	} 
 	else{ 
-		cout << "Die Bibliotheksdatei kann nicht geoeffnet werden"<<endl;
+		cout << "Die Schaltwerksdatei kann nicht geoeffnet werden"<<endl;
 		 
 	}
 	in.close();
+
+		ifstream in1(datei.c_str());
+		if(in1){
+			datei = bibliothek->getPfad();
+			in1.close();
 		
+		} 
+		else{ 
+			cout << "Die Bibliotheksdatei kann nicht geoeffnet werden"<<endl;
+		 
+		}
+		in1.close();
 	gatter = at->getSchaltwerkElement() ;
 		while(at != 0){
 			
@@ -173,7 +191,7 @@ ListenElement* Graphenerzeuger :: createGraph(){
 			it ++;
 		}  //! Ende der for-Schleife
 		 //! Ueberpruefung ob offene Eingaenge vorhanden sind
-		// checksignal();auskommetniet wegen speicher fehler
+		 checksignal();
 		return startElement; 
 	}
 	else{

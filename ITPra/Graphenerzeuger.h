@@ -29,6 +29,7 @@ public:
 	void checksignal();
 	SchaltwerkElement* searchListElement(string gattername);
 	ListenElement* createGraph();
+	ListenElement* getStartElement();
 	void outputGraph();
 		// ######### Methoden end ##############
 

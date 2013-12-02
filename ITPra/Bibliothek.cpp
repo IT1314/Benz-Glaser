@@ -75,7 +75,7 @@ ifstream in (datei.c_str());
 			if(in.bad() == false){
         getline ( in , zeile );//!Zeilenweise einlesen
 	
-				
+				zeile.find("[[ Bausteine]]");//! ist doch noetig.
 				if(zeile.substr(zeile.find("[") +1,zeile.find("]"))== flip){
 					Flipflop* Flip = new Flipflop;
 				    do{
@@ -84,54 +84,54 @@ ifstream in (datei.c_str());
 							blockcounter ++;
 					
 
-					if(zeile.find("ed:")){
+					if(zeile.find("ed:")!= string::npos){
 				
 					 double  ed = atof((zeile.substr(zeile.find("ed:") +1)).c_str());
 					 Flip->setEingaenge(ed);
                      blockcounter ++;
 			
 					}
-					if(zeile.find("tsetup:")){
+					if(zeile.find("tsetup:")!= string::npos){
 				
 					 double tsetup = atof((zeile.substr(zeile.find("tsetup:") +1)).c_str());
                      Flip->setSetupTime(tsetup);
                      blockcounter ++;
 			
 					}
-					if(zeile.find("thold:")){
+					if(zeile.find("thold:")!= string::npos){
 				
 					 double thold = atof((zeile.substr(zeile.find("thold:") +1)).c_str());
                      Flip->setHoldTime(thold);
                      blockcounter ++;
 			
 					}
-					if(zeile.find("cd:")){
+					if(zeile.find("cd:")!= string::npos){
 				
 					double cd = atof((zeile.substr(zeile.find("cd:") +1)).c_str());
                     Flip->setLastKapazitaet(cd);
                     blockcounter ++;
 			
 					}
-					if(zeile.find("et:")){
+					if(zeile.find("et:")!= string::npos){
 
 					blockcounter ++;
 			
 					}
-					if(zeile.find("tpdt:")){
+					if(zeile.find("tpdt:")!= string::npos){
 				
 					 double tpdt = atof((zeile.substr(zeile.find("tpdt:") +1)).c_str());
                      Flip->setGrundLaufzeit(tpdt);
                      blockcounter ++;
 
 					}
-					if(zeile.find("kl:")){
+					if(zeile.find("kl:")!= string::npos){
 				
 					double kl = atof((zeile.substr(zeile.find("kl:") +1)).c_str());
                     Flip->setLastFaktor(kl);
                     blockcounter ++;
 			
 					}
-					if(zeile.find("ct:")){
+					if(zeile.find("ct:")!= string::npos){
 				
 					double ct = atof((zeile.substr(zeile.find("ct:") +1)).c_str());
                     Flip->setLastKapazitaet(ct);
