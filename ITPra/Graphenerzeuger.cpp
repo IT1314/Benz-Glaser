@@ -6,6 +6,7 @@
 #include "SchaltwerkElement.h"
 #include "SignalListeErzeuger.h"
 #include "Bibliothek.h"
+#include "Menu.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -23,24 +24,23 @@ ListenElement*  Graphenerzeuger :: getStartElement(){
 
 
 void Graphenerzeuger :: createList(){
-	vector<Signal>* start =  signallisteerzeug->signalliste.begin();
 	
 	
-	while( start != 0 ) {
+	for( int a = 0; a< Signale.size();a++){  
 	  
 		
 		
 			
 			ListenElement* uebergabe = new ListenElement();			
-			GatterTyp* typus = bibliothek->getBibElement(start->getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
+			GatterTyp* typus = bibliothek->getBibElement(Signale.at(a).getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
 			SchaltwerkElement* object2 = new SchaltwerkElement(typus);
-			object2->setName(start->getQuelle()); //! set Methoden werden aufgerufen
+			object2->setName(Signale.at(a).getQuelle()); //! set Methoden werden aufgerufen
 			uebergabe->setSchaltwerkElement(object2); 
 			uebergabe->setNextElement(NULL); 
 			createListElement(uebergabe);
-			start = start->getNextElement();
+			
 		
-	} //! Ende der while-Schleife 
+	} //! Ende der for-Schleife 
 }
 void Graphenerzeuger :: createListElement(ListenElement* objekt){
 	if(startElement ==NULL && endElement == NULL){//! Wenn die Liste leer ist wird sie angelegt.
@@ -132,7 +132,7 @@ void Graphenerzeuger:: checksignal(){
 }
 ListenElement* Graphenerzeuger :: createGraph(){
   
-	if( ((bibliothek != NULL)) && (signallisteerzeug != NULL) ){ //! Sicherheitsabfrage ob alle Daten zur erzeugung vorliegen.
+	if( ((bibliothek != NULL)) && (!Signale.empty()) ){ //! Sicherheitsabfrage ob alle Daten zur erzeugung vorliegen.
 		
 		if( startElement != NULL){
 			destroyGraph(); //! Falls bereits ein Graph vorhanden ist im Speicher wird dieser ueber die destroy Methode zerstoert bevor der neue angelegt wird.
@@ -144,10 +144,10 @@ ListenElement* Graphenerzeuger :: createGraph(){
  
 			//! Ueberprueft ob die Signale benutzt werden oder nicht.
 		
-		auto it = signallisteerzeug->signalliste.begin();
+		auto it = Signale.begin();
 
 		
-			while( it  != signallisteerzeug->signalliste.end()){
+			while( it  != Signale.end()){
 			
 			if(!((it->getAnzahlZiele() == 0) && (it->getQuelle() == "") && (it->getQuellenTyp() == "") )){ //! Die Eingangssignale werden hier erkannt und als solche in die Eingangselemente abgelegt.
 				if( it->getSignalTyp() == eingang ){ 

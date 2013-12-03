@@ -14,12 +14,11 @@ private:
 		Bibliothek* bibliothek;
 		ListenElement* startElement;
 		ListenElement* endElement;
-		SignalListeErzeuger* signallisteerzeug;
-	
+		vector<Signal> Signale;
     // ########## Attribute  end #############	
 public:
 	// ######### Methoden ##############
-	Graphenerzeuger(Bibliothek* bib,SignalListeErzeuger* signalliste) : bibliothek(bib),signallisteerzeug(signalliste) {}
+	Graphenerzeuger(Bibliothek* bib,vector<Signal> Sig) : bibliothek(bib) {Signale = Sig;}	
 	~Graphenerzeuger(){}
 	ListenElement* getStartElement();
 	void setSignale();
@@ -29,7 +28,7 @@ public:
 	void checksignal();
 	SchaltwerkElement* searchListElement(string gattername);
 	ListenElement* createGraph();
-	ListenElement* getStartElement();
+	
 	void outputGraph();
 		// ######### Methoden end ##############
 

@@ -208,7 +208,7 @@ void Menu::schaltwerkMenue()
 		cout << "(5) Hauptmenue" << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
 		meineBibliothek.dateiAuswerten();
-		Graphenerzeuger Graph (&meineBibliothek,&meinSignalListeErzeuger);
+		Graphenerzeuger Graph (&meineBibliothek,meinSignalListeErzeuger.signalliste);
 		unsigned int zustand = 0;
 		string eingabe;
 		cin >> eingabe;
