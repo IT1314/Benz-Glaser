@@ -8,11 +8,22 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <iterator>
 
 using namespace std;
 
 double temp_frequenz = 0;
 string schaltnetzpfad_local;
+
+SignalListeErzeuger::SignalListeErzeuger()
+{
+	this->anzahlSignale = 0;
+	this->datei = "";
+	this->frequenz = 0;
+}
+SignalListeErzeuger::~SignalListeErzeuger()
+{
+}
 
 
 string SignalListeErzeuger::enter_pfad(bool* guterpfad)
@@ -26,21 +37,22 @@ string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 	{ 
 		*guterpfad = 1;												// Hilfe für das Menu, wenn True wird der Pfad im Menue angezeigt
 		cout << endl << "Eingabe war erfolgreich!" << endl;
+		this->datei = pfad;									// Pfad wird in Klassen String gespeichert gespeichert
 		system ("pause");
 		system ("csl");
-		return pfad;
+		return this->datei;
 	}
 	*guterpfad = 0;
 	cout << endl << "Eingabe war leider nicht erfolgreich!" << endl;
 	system("pause");
 	system("cls");
-	string dummy_string = "";									// return sinnlosen Wert, falls der Pfad nicht in Ordnung war. 
+	string dummy_string = "";									// return dummy Wert, falls der Pfad nicht in Ordnung war. 
 	return dummy_string;
 }
 
-void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
+void SignalListeErzeuger::Ausgabe_Schaltnetzdatei()
 {
-	ifstream in (schaltnetz_pfad.c_str());
+	ifstream in (this->datei);
 	if(in)
 	{
 		string zeile;
@@ -58,10 +70,11 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei(string schaltnetz_pfad)
 	
 }
 
-void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
+void SignalListeErzeuger::Ausgabe_Signale()
 { 
-	schaltnetzpfad_local = schaltnetz_pfad;
-	ifstream input (schaltnetz_pfad.c_str());
+	signalliste.clear();					// resette Signalliste
+	schaltnetzpfad_local = this->datei;
+	ifstream input (this->datei.c_str());
 	string zeile;
 	bool search_terminate = 0;
 	int signalnummer = 0, temp = 5, signal_counter = 0;		// temp is start position für die zeilenweise Signalsuche im Enity Kopf
@@ -183,12 +196,23 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 			}
 		}
 	}
+
 // ******************** Speichern der Frequenz in signalliste Elementen ****************************
+	for(auto it = signalliste.begin(); it != signalliste.end(); it++)
+	{
+		it->set_Frequenz(temp_frequenz);
+	}
+	
+	
+	
+	/*
 	for (unsigned int counter = 0; counter < signalliste.size(); counter++)
 	{
 		Signal temp_signal;
+		it 
 		signalliste.at(counter).set_Frequenz(temp_frequenz);
 	}
+	*/
 // ********************* Quelle, Ziele und Anzahl der Ziele Erkennung ******************************
 	while ( zeile.find("g001") == string::npos)	// get to line after BEGIN
 	{
@@ -197,28 +221,37 @@ void SignalListeErzeuger::Ausgabe_Signale(string schaltnetz_pfad)
 // ********************* Geht das Dokument durch und sucht nach D-Flip-Flop, Und- Oder Gatter und Invertern
 	while (zeile.find("END") == string::npos)
 	{
-		check_for_dff(zeile, &signalliste);
-		check_for_and2(zeile, &signalliste);
-		check_for_xor2(zeile, &signalliste);
-		check_for_inv1a(zeile, &signalliste);
+		check_for_gatter(zeile, &signalliste);
 		getline(input,zeile);
 	}
 
-
-
-
-}
-
-bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signalliste_local)
-{
-	if (temp_str.find("dff") == string::npos)
+//********************** Kurzschluss überprüfen *************************(ist Quelle und Ziel eines Signals identisch?)
+	for (unsigned int element = 0; element < signalliste.size(); element++)
 	{
-		return 0;
+		for (int ziel_nummer = 0; ziel_nummer < signalliste.at(element).getAnzahlZiele();ziel_nummer++)
+		{
+			if (signalliste.at(element).getQuelle() == signalliste.at(element).getZiel(ziel_nummer))
+			{
+				cout << "ERROR: Kurzschluss wurde entdeckt!" << endl;
+				system("PAUSE");
+				system("cls");
+				signalliste.clear();
+				return;
+			}
+		}
 	}
 
-	string gatter, quelle, ziel_i, ziel_i_plus_1;
+	this->anzahlSignale = signalliste.size();		// speichern der Anzahle der Signale in der Klasse
+}
+
+bool SignalListeErzeuger::check_for_gatter(string temp_str, vector<Signal>* signalliste_local)
+{
+		
+	string gatter, gatter_art, quelle, ziel_i, ziel_i_plus_1;
+	
+	gatter_art = temp_str.substr(temp_str.find(":")+1,temp_str.find("(")-temp_str.find(":")-1);		// Art des Gatters: dff, and2, xor2....
 	int komma = 0;
-	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));
+	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));				// Gattername: g001, g002,....
 
 	komma = temp_str.find(",");
 	// Falls temp_str = "g001:dff(s013,clk,s009);" z.B. dann ist Quelle = s009, ziel_i = s013 und ziel_i_plus_1 = clk
@@ -232,7 +265,7 @@ bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signall
 		if (signalliste_local->at(counter).getName() == quelle)
 		{
 			signalliste_local->at(counter).setQuelle(gatter);
-			signalliste_local->at(counter).setQuellenTyp("dff");
+			signalliste_local->at(counter).setQuellenTyp(gatter_art);
 		}
 		if (signalliste_local->at(counter).getName() == ziel_i)
 		{
@@ -274,180 +307,3 @@ bool SignalListeErzeuger::check_for_dff(string temp_str, vector<Signal>* signall
 	return 1;
 }
 
-// Wie Check_for_dff nur halt mit "and2"
-bool SignalListeErzeuger::check_for_and2(string temp_str, vector<Signal>* signalliste_local)
-{
-	if (temp_str.find("and2") == string::npos)
-	{
-		return 0;
-	}
-
-	string gatter, quelle, ziel_i, ziel_i_plus_1;
-	int komma = 0;
-	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));
-
-	komma = temp_str.find(",");
-	// if temp_str if "g001:and2(s001,s006,s002); z.B. dann ist Quelle = s002, ziel_i = s001 und ziel_i_plus_1 = s006
-	quelle = temp_str.substr(temp_str.find(",",komma+1)+1,temp_str.find(")")-temp_str.find(",",komma+1)-1);
-	ziel_i = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);
-	ziel_i_plus_1 = temp_str.substr(temp_str.find(",")+1,temp_str.find(",",temp_str.find(",")+1)-temp_str.find(",")-1);
-	for (unsigned int counter = 0; counter < signalliste_local->size(); counter++)
-	{
-		if (signalliste_local->at(counter).getName() == quelle)
-		{
-			signalliste_local->at(counter).setQuelle(gatter);
-			signalliste_local->at(counter).setQuellenTyp("and2");
-		}
-		if (signalliste_local->at(counter).getName() == ziel_i)
-		{
-			int counter2 = 0;
-			bool found_place = 0;
-			while (counter2 < 5 && found_place == 0)
-			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
-				{
-					signalliste_local->at(counter).setZiel(gatter,counter2);
-					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
-					found_place = 1;
-				}
-				else
-				{
-					counter2++;
-				}
-			}
-		}
-		if (signalliste_local->at(counter).getName() == ziel_i_plus_1)
-		{
-			int counter2 = 0;
-			bool found_place = 0;
-			while (counter2 < 5 && found_place == 0)
-			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
-				{
-					signalliste_local->at(counter).setZiel(gatter,counter2);
-					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
-					found_place = 1;
-				}
-				else
-				{
-					counter2++;
-				}
-			}
-		}
-	}
-	return 1;
-}
-
-// Wie check_for_dff nur mit "xor2"
-bool SignalListeErzeuger::check_for_xor2(string temp_str, vector<Signal>* signalliste_local)
-{
-	if (temp_str.find("xor2") == string::npos)
-	{
-		return 0;
-	}
-
-	string gatter, quelle, ziel_i, ziel_i_plus_1;
-	int komma = 0;
-	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));
-
-	komma = temp_str.find(",");
-	// if temp_str if "g003:xor2(s003,s008,s012); z.B. dann ist Quelle = s012, ziel_i = s003 und ziel_i_plus_1 = s008
-	quelle = temp_str.substr(temp_str.find(",",komma+1)+1,temp_str.find(")")-temp_str.find(",",komma+1)-1);
-	ziel_i = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);
-	ziel_i_plus_1 = temp_str.substr(temp_str.find(",")+1,temp_str.find(",",temp_str.find(",")+1)-temp_str.find(",")-1);
-	for (unsigned int counter = 0; counter < signalliste_local->size(); counter++)
-	{
-		if (signalliste_local->at(counter).getName() == quelle)
-		{
-			signalliste_local->at(counter).setQuelle(gatter);
-			signalliste_local->at(counter).setQuellenTyp("xor2");
-		}
-		if (signalliste_local->at(counter).getName() == ziel_i)
-		{
-			int counter2 = 0;
-			bool found_place = 0;
-			while (counter2 < 5 && found_place == 0)
-			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
-				{
-					signalliste_local->at(counter).setZiel(gatter,counter2);
-					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
-					found_place = 1;
-				}
-				else
-				{
-					counter2++;
-				}
-			}
-		}
-		if (signalliste_local->at(counter).getName() == ziel_i_plus_1)
-		{
-			int counter2 = 0;
-			bool found_place = 0;
-			while (counter2 < 5 && found_place == 0)
-			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
-				{
-					signalliste_local->at(counter).setZiel(gatter,counter2);
-					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
-					found_place = 1;
-				}
-				else
-				{
-					counter2++;
-				}
-			}
-		}
-	}
-	return 1;
-}
-
-// Wie check_for_dff nur mit 2 Signalen und "inv1a"
-bool SignalListeErzeuger::check_for_inv1a(string temp_str, vector<Signal>* signalliste_local)
-{
-	if (temp_str.find("inv1a") == string::npos)
-	{
-		return 0;
-	}
-
-	string gatter, quelle, ziel;
-	int komma = 0;
-	gatter = temp_str.substr(temp_str.find("g"),temp_str.find(":")-temp_str.find("g"));
-
-	quelle = temp_str.substr(temp_str.find(",")+1,temp_str.find(")")-temp_str.find(",")-1);
-	ziel = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);
-	for (unsigned int counter = 0; counter < signalliste_local->size(); counter++)
-	{
-		if (signalliste_local->at(counter).getName() == quelle)
-		{
-			signalliste_local->at(counter).setQuelle(gatter);
-			signalliste_local->at(counter).setQuellenTyp("inv1a");
-		}
-		if (signalliste_local->at(counter).getName() == ziel)
-		{
-			int counter2 = 0;
-			bool found_place = 0;
-			while (counter2 < 5 && found_place == 0)
-			{
-				if (signalliste_local->at(counter).getZiel(counter2) == "")
-				{
-					signalliste_local->at(counter).setZiel(gatter,counter2);
-					signalliste_local->at(counter).setAnzahlZiele(signalliste_local->at(counter).getAnzahlZiele()+1);
-					found_place = 1;
-				}
-				else
-				{
-					counter2++;
-				}
-			}
-		}
-	}
-	return 1;
-}
-
-
-void SignalListeErzeuger::Ausgabe_Graphstruktur()
-{
-
-
-}

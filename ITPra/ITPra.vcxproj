@@ -58,6 +58,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>itiv_win_drv.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -83,6 +84,7 @@
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
     <ClInclude Include="GatterTyp.h" />
+    <ClInclude Include="itiv_win_drv.h" />
     <ClInclude Include="Laufzeitanalyse.h" />
     <ClInclude Include="ListenElement.h" />
     <ClInclude Include="Graphenerzeuger.h" />
@@ -106,6 +108,9 @@
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="SignalListeErzeuger.cpp" />
     <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="itiv_win_drv.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

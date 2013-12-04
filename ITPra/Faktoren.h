@@ -39,13 +39,12 @@ class Faktoren
 		bool berechneProzessFaktor(short prz);
 		
 		double interpolation(double value, double x1, double x2, double y1, double y2);
+
 		double getSpannung();
 		double getTemperatur();
 		short getProzess();
+		void setItiv(int ch);
 		void getFaktore(double spgFaktor, double tmpFaktor, double przFaktor);
-		double get_spannungs_faktor() {return spannungFaktor;}
-		double get_temperatur_faktor() {return temperaturFaktor;}
-		double get_prozess_faktor() {return prozessFaktor;}
 		bool setSpannung(double spannung);
 		bool setTemperatur(double temperatur);
 		bool setProzess(short prozess);
@@ -53,4 +52,4 @@ class Faktoren
 	// ######### Methoden end ##########
 };
 
-#endif //FAKTOREN_H
+#endif FAKTOREN_H

@@ -16,6 +16,7 @@
 #include "Bibliothek.h"
 #include "SchaltwerkElement.h"
 #include "main.h"
+#include "itiv_win_drv.h"	
 using namespace std;
 //***************** INCLUDE FILES END **************************
 
@@ -26,13 +27,15 @@ Menu meinMenu;
 Faktoren meineFaktoren;
 Bibliothek meineBibliothek("..\bib2.txt");
 SignalListeErzeuger meinSignalListeErzeuger;
-
+	string auswahl="";															
+	int auswahlzuint=0;
 	double spannung_untermenue = 0;
 	double temperatur_untermenue = 0;
 	double prozess_untermenue = 0;
 	string schaltnetzdatei_pfad;
 	bool guterpfad = 0;
 	bool guter_bibliotheks_pfad = 0;
+
 //***************** MODUL GLOBAL VARIABLES END *****************
 
 
@@ -85,52 +88,148 @@ void Menu::faktorenMenue()
 		{
 			case SPANNUNG:
 				system("cls");
-				cout << "Bitte Spannung eingeben: ";
-				cin >> spannungs_eingabe;
-				system("cls");
-				success_spannung = meineFaktoren.berechneSpannungFaktor(atof(spannungs_eingabe.c_str()));
-				if (success_spannung == 1)
+				cout << "Auswahl der Spannungseingabe" << endl;		//verändert
+				cout << "(1) Manuell" << endl;						//verändert
+				cout << "(2) Itiv Device" << endl;					//verändert
+				cin  >>auswahl;										//verändert
+				auswahlzuint=atoi(auswahl.c_str());
+				switch (auswahlzuint)
 				{
-					spannung_untermenue = atof(spannungs_eingabe.c_str());
+					case 1:
+						system("cls");
+						cout << "Bitte Spannung eingeben: ";
+						cin >> spannungs_eingabe;
+						system("cls");
+						success_spannung = meineFaktoren.berechneSpannungFaktor(atof(spannungs_eingabe.c_str()));
+						if (success_spannung == 1)
+						{
+							spannung_untermenue = atof(spannungs_eingabe.c_str());
+						}
+						if (success_spannung == 0)
+						{
+							spannung_untermenue = 0;
+						}
+						break;
+					case 2:
+						system("cls");
+						meineFaktoren.setItiv(1);
+						success_spannung = meineFaktoren.berechneSpannungFaktor(meineFaktoren.getSpannung());
+						if (success_spannung == 1)
+						{
+							spannung_untermenue=meineFaktoren.getSpannung();
+						}
+						if (success_spannung == 0)
+						{
+							spannung_untermenue = 0;
+						}
+						spannung_untermenue=meineFaktoren.getSpannung();
+						break;
+					default:
+						system("cls");
+						cout << "nicht definierter Auswahlpunkt! Bitte wählen Sie einen Auswahlpunkt indem Sie die Zahlen 1 oder 2 eingeben!" << endl;
+						system("pause");
+						break;
 				}
-				if (success_spannung == 0)
-				{
-					spannung_untermenue = 0;
-				}
+				
 				break;
 
 			case TEMPERATUR:
+
 				system("cls");
-				cout << "Bitte Temperatur eingeben: ";
-				cin >> temperatur_eingabe;
-				system("cls");
-				success_temperatur = meineFaktoren.berechneTemperaturFaktor(atof(temperatur_eingabe.c_str()));
-				if (success_temperatur == 1)
+				cout << "Auswahl der Temperatureingabe" << endl;		
+				cout << "(1) Manuell" << endl;						
+				cout << "(2) Itiv Device" << endl;					
+				cin  >>auswahl;										
+				auswahlzuint=atoi(auswahl.c_str());
+				switch (auswahlzuint)
 				{
-					temperatur_untermenue = atof(temperatur_eingabe.c_str());
-				}
-				if (success_temperatur == 0)
-				{
-					temperatur_untermenue = 0;
+				
+					case 1:
+						system("cls");
+						cout << "Bitte Temperatur eingeben: ";
+						cin >> temperatur_eingabe;
+						system("cls");
+						success_temperatur = meineFaktoren.berechneTemperaturFaktor(atof(temperatur_eingabe.c_str()));
+						if (success_temperatur == 1)
+						{
+							temperatur_untermenue = atoi(temperatur_eingabe.c_str());
+						}
+						if (success_temperatur == 0)
+						{
+							temperatur_untermenue = 0;
+						}
+
+						break;
+					case 2:
+						system("cls");
+						meineFaktoren.setItiv(2);
+						success_temperatur = meineFaktoren.berechneTemperaturFaktor(meineFaktoren.getTemperatur());
+						if (success_temperatur == 1)
+						{
+							temperatur_untermenue=meineFaktoren.getTemperatur();
+						}
+						if (success_temperatur == 0)
+						{
+							temperatur_untermenue = 0;
+						}
+						temperatur_untermenue=meineFaktoren.getTemperatur();
+						break;
+					default:
+						system("cls");
+						cout << "nicht definierter Auswahlpunkt! Bitte wählen Sie einen Auswahlpunkt indem Sie die Zahlen 1 oder 2 eingeben!" << endl;
+						system("pause");
+						break;
 				}
 				break;
-
+						
 			case PROZESS:
 				system("cls");
-				cout << "Bitte Prozessgeschwindigkeit eingeben: ";
-				cin >> prozess_eingabe;
-				system("cls");
-				success_prozess = meineFaktoren.berechneProzessFaktor(short(atof(prozess_eingabe.c_str()))); // input wird zu short gecastet um Schnittstelle anzupassen
-				if (success_prozess == 1)
+				cout << "Auswahl der Prozesseingabe" << endl;		
+				cout << "(1) Manuell" << endl;						
+				cout << "(2) Itiv Device" << endl;					
+				cin  >>auswahl;										
+				auswahlzuint=atoi(auswahl.c_str());
+				switch (auswahlzuint)
 				{
-					prozess_untermenue = atof(prozess_eingabe.c_str());
-				}
-				if (success_prozess == 0)
-				{
-					prozess_untermenue = 0;
-				}
-				break;
+					case 1:
+						system("cls");
+						cout << "Bitte Prozessgeschwindigkeit eingeben: ";
+						cin >> prozess_eingabe;
+						system("cls");
+						success_prozess = meineFaktoren.berechneProzessFaktor(short(atof(prozess_eingabe.c_str()))); // input wird zu short gecastet um Schnittstelle anzupassen
+						if (success_prozess == 1)
+						{
+							prozess_untermenue = atof(prozess_eingabe.c_str());
+						}
+						if (success_prozess == 0)
+						{
+							prozess_untermenue = 0;
+						}
+					case 2:
+						system("cls");
+						meineFaktoren.setItiv(3);
+						success_prozess = meineFaktoren.berechneProzessFaktor(meineFaktoren.getProzess()); // input wird zu short gecastet um Schnittstelle anzupassen
+						if (success_prozess == 1)
+						{
+						prozess_untermenue=meineFaktoren.getProzess();
+						}
+						if (success_prozess == 0)
+						{
+							prozess_untermenue = 0;
+						}
 
+						
+						break;
+					default:
+						system("cls");
+						cout << "nicht definierter Auswahlpunkt! Bitte wählen Sie einen Auswahlpunkt indem Sie die Zahlen 1 oder 2 eingeben!" << endl;
+						system("pause");
+					
+						break;
+				}
+
+			break;
+							
 			case AUSGABE_ERRECHNETER_FAKTOREN:
 				meineFaktoren.ausgabeFaktoren();
 				break;
@@ -145,7 +244,6 @@ void Menu::faktorenMenue()
 		}
 	}
 }
-
 void Menu::bibliothekMenue()
 {
 //**** FUNKTIONSAUFGABE: schreibt das Untermenü "Bibliothek" in die Konsole und navigiert dieses.
@@ -219,13 +317,13 @@ void Menu::schaltwerkMenue()
 				schaltnetzdatei_pfad = meinSignalListeErzeuger.enter_pfad(&guterpfad);
 				break;
 			case AUSGABE_SCHALTNETZDATEI:
-				if (guterpfad == 1){meinSignalListeErzeuger.Ausgabe_Schaltnetzdatei(schaltnetzdatei_pfad);}
+				if (guterpfad == 1){meinSignalListeErzeuger.Ausgabe_Schaltnetzdatei();}
 				system("PAUSE");
 				break;
 			case AUSGABE_SIGNALE_MENU:
 				if (guterpfad == 1 ) 
 				{
-					meinSignalListeErzeuger.Ausgabe_Signale(schaltnetzdatei_pfad);
+					meinSignalListeErzeuger.Ausgabe_Signale();
 				}
 				system("pause");
 				break;
@@ -322,7 +420,7 @@ void Menu::start()
 
 
 //***************** FUNCTIONS AND METHODS DECLARATIONS END *****
-/*
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 // FUNKTIONSAUFGABE: Main funktion, startet Menue und dient zum beenden des Programms.
@@ -330,7 +428,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	startmenue.start();
 	return 0;
 }
-*/
+
 
 
 

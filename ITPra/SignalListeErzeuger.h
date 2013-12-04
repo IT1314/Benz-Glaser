@@ -14,17 +14,16 @@ private:
 	long frequenz;				
 
 public:
+	SignalListeErzeuger();
+	~SignalListeErzeuger();
 	std::vector<Signal> signalliste;
-	bool check_pfad(string pfad_eingabe);
 	std::string enter_pfad(bool* guterpfad);
 
-	void Ausgabe_Schaltnetzdatei(std::string schaltnetz_pfad);
-	void Ausgabe_Signale(std::string schaltnetz_pfad);
-	void Ausgabe_Graphstruktur();
-	bool check_for_dff(string temp_str, vector<Signal>* signalliste);
-	bool check_for_and2(string temp_str, vector<Signal>* signalliste_local);
-	bool check_for_xor2(string temp_str, vector<Signal>* signalliste_local);
-	bool check_for_inv1a(string temp_str, vector<Signal>* signalliste_local);
+	void Ausgabe_Schaltnetzdatei();
+	void Ausgabe_Signale();
+	bool check_for_gatter(string temp_str, vector<Signal>* signalliste);
+	long get_frequenz () {return this->frequenz;}
+	short get_anzahlSignale() {return this->anzahlSignale;}
 };
 
 #endif //SIGNALLISTEERZEUGER_H
