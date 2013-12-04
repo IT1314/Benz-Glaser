@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Faktoren.h"
 #include "Menu.h"
+#include "itiv_win_drv.h"
 
 using namespace std;
 //***************** INCLUDE FILES END **************************
@@ -13,6 +14,8 @@ using namespace std;
 Faktoren meineFaktoren_intern;
 
 // ********************** METHODEN DEKLARATION ************************
+
+
 
 double Faktoren::interpolation(double wert, double x1, double x2, double y1, double y2)
 {
@@ -147,7 +150,7 @@ bool Faktoren::berechneProzessFaktor(short prz)
 
 double Faktoren::getSpannung() {return meineFaktoren_intern.spannung;}
 
-double Faktoren::getTemperatur() {return meineFaktoren_intern.temperatur;}
+double Faktoren::getTemperatur() {return meineFaktoren_intern.temperatur;}//verändert
 
 short Faktoren::getProzess() {return short(meineFaktoren_intern.prozess);}
 
@@ -166,6 +169,113 @@ void Faktoren::ausgabeFaktoren()
 	return;
 }
 
+void Faktoren::setItiv(int ch){
+
+	bool beendensVar=true;
+	ItivDev_Config* DevPtr;																	
+	DevPtr = ItivDev_GetConfigByName("Global\\ITIV_WindowsDevice");									//Initialisieren vom itiv device
+		
+	switch(ch)
+	{
+		case 1:																						// für Spannung
+			
+			while (beendensVar)
+			{
+				
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 0;											//START =0
+				while(*(DevPtr->BaseAddress + STAT_REG + 3) ==0)									//Wenn READY=0 warten an der stelle
+				{										
+				
+				}
+					
+				*(DevPtr->BaseAddress + CTRL_REG ) = 1;												//CH =1 für Spannung
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 1;											//START = 1
+					
+				while(*(DevPtr->BaseAddress + STAT_REG + 2) == 0)									//Wenn DONE=0 warten an der stelle
+				{
+						
+				}	
+			
+				if(*(DevPtr->BaseAddress + STAT_REG ) == 0)											//Wenn ERR =0 dann soll es die daten auslesen
+				{ 
+					
+					beendensVar=false;	
+					double voltage = *((double*)(DevPtr->BaseAddress + DATA_REG));					//Spannugswert wird unter voltage gespeichert
+					setSpannung(voltage);
+					ItivDev_ReleaseDevice(DevPtr);
+
+				}
+
+	
+			}
+			break;
+		case 2:																						// für Temperatur
+			
+			while (beendensVar)
+			{
+				cout<< "programm hier";
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 0;											//START =0
+						
+				while(*(DevPtr->BaseAddress + STAT_REG + 3) ==0)									//Wenn READY=0 warten an der stelle
+				{										
+					
+				}
+					
+				*(DevPtr->BaseAddress + CTRL_REG ) = 2;												//CH =2 für Temperatur
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 1;											//START = 1
+					
+				while(*(DevPtr->BaseAddress + STAT_REG + 2) == 0)									//Wenn DONE=0 warten an der stelle
+				{
+						
+				}	
+				
+				if(*(DevPtr->BaseAddress + STAT_REG ) == 0)											//Wenn ERR =0 dann soll es die daten auslesen
+				{ 
+					
+					beendensVar=false;	
+					int temperaturdevice = *((int*)(DevPtr->BaseAddress + DATA_REG));				//Temperaturwert wird unter temp gespeichert
+					double temper= temperaturdevice*1.0;
+					setTemperatur(temper);
+					ItivDev_ReleaseDevice(DevPtr);
+				}
+		
+			}	
+			break;
+		case 3:																						//für Prozess
+		
+			while (beendensVar)
+			{
+				
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 0;											//START =0
+						
+				while(*(DevPtr->BaseAddress + STAT_REG + 3) ==0)									//Wenn READY=0 warten an der stelle
+				{										
+					
+				}
+					
+				*(DevPtr->BaseAddress + CTRL_REG ) = 3;												//CH =3 für Prozess
+				*(DevPtr->BaseAddress + CTRL_REG + 1) = 1;											//START = 1
+					
+				while(*(DevPtr->BaseAddress + STAT_REG + 2) == 0)									//Wenn DONE=0 warten an der stelle
+				{
+						
+				}	
+		
+				if(*(DevPtr->BaseAddress + STAT_REG ) == 0)											//Wenn ERR =0 dann soll es die daten auslesen
+				{ 
+					
+					beendensVar=false;	
+					short prozess = *((short*)(DevPtr->BaseAddress + DATA_REG));					//Prozesswert wird unter prozess gespeichert
+					
+					setProzess(prozess+1);
+					ItivDev_ReleaseDevice(DevPtr);
+				}
+		
+			}	
+			break;
+
+	}
+}
  
 
 // ********************** METHODEN DEKLARATION END ********************

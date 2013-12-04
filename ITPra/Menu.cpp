@@ -205,6 +205,7 @@ void Menu::faktorenMenue()
 						{
 							prozess_untermenue = 0;
 						}
+						break;
 					case 2:
 						system("cls");
 						meineFaktoren.setItiv(3);
@@ -217,9 +218,9 @@ void Menu::faktorenMenue()
 						{
 							prozess_untermenue = 0;
 						}
-
-						
 						break;
+						
+						
 					default:
 						system("cls");
 						cout << "nicht definierter Auswahlpunkt! Bitte wählen Sie einen Auswahlpunkt indem Sie die Zahlen 1 oder 2 eingeben!" << endl;
