@@ -31,14 +31,19 @@ void Graphenerzeuger :: createList(){
 		
 		
 			
-			ListenElement* uebergabe = new ListenElement();			
+			ListenElement* uebergabe = new ListenElement();	
+			if(Signale.at(a).getQuellenTyp()!=""){
+				
 			GatterTyp* typus = bibliothek->getBibElement(Signale.at(a).getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
 			SchaltwerkElement* object2 = new SchaltwerkElement(typus);
 			object2->setName(Signale.at(a).getQuelle()); //! set Methoden werden aufgerufen
 			uebergabe->setSchaltwerkElement(object2); 
 			uebergabe->setNextElement(NULL); 
 			createListElement(uebergabe);
-			
+			}
+			else{
+				cout<<"Fehler!"<<endl;
+			}
 		
 	} //! Ende der for-Schleife 
 }
