@@ -24,6 +24,7 @@ public:
 	bool check_for_gatter(string temp_str, vector<Signal>* signalliste);
 	long get_frequenz () {return this->frequenz;}
 	short get_anzahlSignale() {return this->anzahlSignale;}
+
 };
 
 #endif //SIGNALLISTEERZEUGER_H

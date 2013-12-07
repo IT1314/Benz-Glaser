@@ -13,7 +13,6 @@
 using namespace std;
 
 double temp_frequenz = 0;
-string schaltnetzpfad_local;
 
 SignalListeErzeuger::SignalListeErzeuger()
 {
@@ -73,7 +72,6 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei()
 void SignalListeErzeuger::Ausgabe_Signale()
 { 
 	signalliste.clear();					// resette Signalliste
-	schaltnetzpfad_local = this->datei;
 	ifstream input (this->datei.c_str());
 	string zeile;
 	bool search_terminate = 0;
@@ -203,16 +201,6 @@ void SignalListeErzeuger::Ausgabe_Signale()
 		it->set_Frequenz(temp_frequenz);
 	}
 	
-	
-	
-	/*
-	for (unsigned int counter = 0; counter < signalliste.size(); counter++)
-	{
-		Signal temp_signal;
-		it 
-		signalliste.at(counter).set_Frequenz(temp_frequenz);
-	}
-	*/
 // ********************* Quelle, Ziele und Anzahl der Ziele Erkennung ******************************
 	while ( zeile.find("g001") == string::npos)	// get to line after BEGIN
 	{
@@ -240,13 +228,15 @@ void SignalListeErzeuger::Ausgabe_Signale()
 			}
 		}
 	}
-
+		
 	this->anzahlSignale = signalliste.size();		// speichern der Anzahle der Signale in der Klasse
+	cout << "SUCCESS!" << endl;
+	system("PAUSE");
+	system("cls");
 }
 
 bool SignalListeErzeuger::check_for_gatter(string temp_str, vector<Signal>* signalliste_local)
-{
-		
+{	
 	string gatter, gatter_art, quelle, ziel_i, ziel_i_plus_1;
 	
 	gatter_art = temp_str.substr(temp_str.find(":")+1,temp_str.find("(")-temp_str.find(":")-1);		// Art des Gatters: dff, and2, xor2....
@@ -255,10 +245,20 @@ bool SignalListeErzeuger::check_for_gatter(string temp_str, vector<Signal>* sign
 
 	komma = temp_str.find(",");
 	// Falls temp_str = "g001:dff(s013,clk,s009);" z.B. dann ist Quelle = s009, ziel_i = s013 und ziel_i_plus_1 = clk
+	if (temp_str.find(",",komma+1) == string::npos)			//Falls nur 1 Eingang vorhanden ist, wie bei den Invertern
+	{
+		quelle = temp_str.substr(temp_str.find(",")+1,temp_str.find(")")-temp_str.find(",")-1);
+		ziel_i = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);	
+		ziel_i_plus_1 = "";
+	}
+	else
+	{
 	quelle = temp_str.substr(temp_str.find(",",komma+1)+1,temp_str.find(")")-temp_str.find(",",komma+1)-1);		
 	ziel_i = temp_str.substr(temp_str.find("(")+1,temp_str.find(",")-temp_str.find("(")-1);
 	ziel_i_plus_1 = temp_str.substr(temp_str.find(",")+1,temp_str.find(",",temp_str.find(",")+1)-temp_str.find(",")-1);
-	
+	}
+
+
 //************************** Geht die Signalliste durch und sucht nach der Quelle und den Zielen **********************
 	for (unsigned int counter = 0; counter < signalliste_local->size(); counter++)
 	{
