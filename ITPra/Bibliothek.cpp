@@ -77,7 +77,9 @@ ifstream in (datei.c_str());
 
 			do{
 					getline ( in , zeile );
-				}while(!((zeile.find("dff"))!= string::npos));
+
+					}while(!((zeile.find("dff"))!= string::npos));
+				
 		}
 		while (!(in.eof()) && in.good()){
 			
@@ -97,8 +99,7 @@ ifstream in (datei.c_str());
 				    do{
 							getline ( in , zeile );//!Zeilenweise einlesen
 							Flip->setName(flip);
-							blockcounter ++;
-					
+												
 
 					if(zeile.find("ed:")!= string::npos){
 				
@@ -155,7 +156,7 @@ ifstream in (datei.c_str());
 			
 					}
 						  }	
-					while((blockcounter < 9) && !(in.eof()));
+					while((blockcounter < 8) && !(in.eof()));
 					bibElemente.push_back(Flip);
 					blockcounter = 0;
 				}
