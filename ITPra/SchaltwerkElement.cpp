@@ -8,10 +8,10 @@ using namespace std;
 SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp){
 
 	name=(*gTyp).getName();		
-	laufzeitEinzelgatter;
-	anzahlNachfolger;
-	isEingangsElement;
-	isAusgangsElement;
+	laufzeitEinzelgatter= 0;
+	anzahlNachfolger = 0;
+	isEingangsElement = false;
+	isAusgangsElement= false;
 	anzahlEingangssignale=(*gTyp).getEingaenge();
 	
 	typ=gTyp;
@@ -49,7 +49,7 @@ short SchaltwerkElement::getAnzahlEingangssignale(){
 bool SchaltwerkElement::getIsEingangsElement(){	
 	return isEingangsElement;
 }
-bool SchaltwerkElement::getIsAusgagsElement(){
+bool SchaltwerkElement::getIsAusgangsElement(){
 	return isAusgangsElement;
 }
 
