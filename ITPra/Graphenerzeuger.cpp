@@ -1,6 +1,3 @@
-
-
-
 //***************** INCLUDE FILES ******************************
 #include "Graphenerzeuger.h"
 #include "SchaltwerkElement.h"
@@ -22,32 +19,26 @@ ListenElement*  Graphenerzeuger :: getStartElement(){
 	return startElement;
 }
 
+void Graphenerzeuger :: createList(){//! Erzeugt die Liste
+		
+	for( int a = 0; a< Signale.size();a++){  //! Durchlaeuft den Signalvector
+	  		
+		if(Signale.at(a).getQuellenTyp()!=""){	//! Es wird verhindert das Signale mit leerer Quelle  hinzugefuegt werden.
 
-void Graphenerzeuger :: createList(){
-	
-	
-	for( int a = 0; a< Signale.size();a++){  
-	  
-		
-		
+		    ListenElement* uebergabe = new ListenElement();				
 			
-			ListenElement* uebergabe = new ListenElement();	
-			if(Signale.at(a).getQuellenTyp()!=""){
-			string test = Signale.at(a).getQuellenTyp();
 			GatterTyp* typus = bibliothek->getBibElement(Signale.at(a).getQuellenTyp()); //! Ermittelt den Gattertyp mittels der Bibliothek.			 
 			SchaltwerkElement* object2 = new SchaltwerkElement(typus);
 			object2->setName(Signale.at(a).getQuelle()); //! set Methoden werden aufgerufen
 			uebergabe->setSchaltwerkElement(object2); 
 			uebergabe->setNextElement(NULL); 
 			createListElement(uebergabe);
-			}
-			else{
-				cout<<"Fehler!"<<endl;
-			}
-		
+
+		}//! Ende der if-Schleife			
 	} //! Ende der for-Schleife 
 }
-void Graphenerzeuger :: createListElement(ListenElement* objekt){
+
+void Graphenerzeuger :: createListElement(ListenElement* objekt){//! Fügt ein Element an die Liste an.
 	if(startElement ==NULL && endElement == NULL){//! Wenn die Liste leer ist wird sie angelegt.
 		startElement = objekt;
 		endElement = objekt;
@@ -58,52 +49,45 @@ void Graphenerzeuger :: createListElement(ListenElement* objekt){
 		endElement = objekt;
 	}
 }
-void Graphenerzeuger:: destroyGraph(){
 
-	// überprüft ob was im startelement drinnen steht.
-	
-		// löscht liste von oben nach unten bis zum letzten element
-		while( !(startElement == NULL)){
+void Graphenerzeuger:: destroyGraph(){
+			
+		while( !(startElement == NULL)){//! Ueberprueft ob der Graph leer ist wenn nicht, loescht die Schleife die Elemente.
 			ListenElement* loeschzeiger ;
 			loeschzeiger = startElement;
 			startElement = startElement->getNextElement();
 			
 			delete loeschzeiger;
 			
-		}// while schleife
+		}//! Ende der while-Schleife
 		startElement = NULL;
 		endElement = NULL;
 	
 }
 
-	
-
 SchaltwerkElement* Graphenerzeuger:: searchListElement(string gattername){
 	ListenElement* start =   startElement;
-	while( start != 0 ) {
-		if(start->getSchaltwerkElement()->getName() == gattername)
+	while( start != 0 ) {//! Durchlaeuft die Liste.
+		if(start->getSchaltwerkElement()->getName() == gattername){
 			return start->getSchaltwerkElement();
+		}
 		start = start->getNextElement();
 	}
 	return 0;
 }
-		
-
-
-
 
 void Graphenerzeuger:: checksignal(){
-	// geht liste durch
+	//! Ueberprueft die Liste.
 	for(ListenElement* laufzeiger = startElement; laufzeiger != NULL; laufzeiger = laufzeiger->getNextElement()){
 
 		int anzahlgattereingaenge;
 		int anzahleingangssignale;
-		// holt sich die information, die zu vergleichen sind
+		
 		anzahleingangssignale =	laufzeiger->getSchaltwerkElement()->getAnzahlEingangssignale();
-		anzahlgattereingaenge = laufzeiger->getSchaltwerkElement()->getTyp()->getEingaenge();
-		// vergleicht die dateneingänge
-		if( (anzahlgattereingaenge > anzahleingangssignale) || (anzahlgattereingaenge < anzahleingangssignale)){
-			// gibt feldermeldung aus
+		anzahlgattereingaenge = laufzeiger->getSchaltwerkElement()->getTyp()->getEingaenge();//! Belaedt die Vergleichsvariablen.
+		
+		if( (anzahlgattereingaenge > anzahleingangssignale) || (anzahlgattereingaenge < anzahleingangssignale)){//! Vergleicht die Daten.
+			//! Fehlermeldung wird ausgegeben.
 			cout << "Es gibt ungenutzte Eingaenge der Gatter bzw. es gibt zu viele Eingangssignale" << endl;
 			cout << " Deshalb wurde der Graph wieder geloescht, da nicht alles korrekt war" << endl;
 			cout << " Lesen Sie bitte einen anderen Schaltplan ein" << endl;
@@ -112,14 +96,15 @@ void Graphenerzeuger:: checksignal(){
 			cout << " Eingaenge laut Bibliothek: " << anzahlgattereingaenge << endl;
 			cout << " Ihr Graph wurde geloescht" << endl;
 			
-			 // löscht Graph
+			 //! Graph wird geloescht
 			destroyGraph();
 			break;
 			
-		} // ende der ifschleife
+		} // Ende der if-Schleife
 
-	}// ende der forschleife
+	}// Ende der for-Schleife
 }
+
 ListenElement* Graphenerzeuger :: createGraph(){
   
 	if( ((bibliothek != NULL)) && (!Signale.empty()) ){ //! Sicherheitsabfrage ob alle Daten zur erzeugung vorliegen.
@@ -128,13 +113,11 @@ ListenElement* Graphenerzeuger :: createGraph(){
 			destroyGraph(); //! Falls bereits ein Graph vorhanden ist im Speicher wird dieser ueber die destroy Methode zerstoert bevor der neue angelegt wird.
 		} 
 		
-		createList();
+		createList();//! Die Liste der Schaltwerke wird erzeugt.
 		int a = 0;
-
- 		
-
-		for( auto it = Signale.begin(); it!= Signale.end() ; it++){
-			
+		
+		for( auto it = Signale.begin(); it!= Signale.end() ; it++,a++){
+									
 			//! Ueberprueft ob die Signale benutzt werden oder nicht.
 			if(!((it->getAnzahlZiele() == 0) && (it->getQuelle() == "") && (it->getQuellenTyp() == "") )){ //! Die Eingangssignale werden hier erkannt und als solche in die Eingangselemente abgelegt.
 				if( it->getSignalTyp() == eingang ){ 
@@ -175,7 +158,7 @@ ListenElement* Graphenerzeuger :: createGraph(){
 				cout << " Ihr Graph wurde geloescht auf grund dieses Fehlers" << endl;
 				destroyGraph();//Fehler?
 				return NULL; } 
-			it ++;
+			
 		}  //! Ende der for-Schleife
 		 //! Ueberpruefung auf offene Eingaenge 
 		 checksignal();
@@ -186,23 +169,24 @@ ListenElement* Graphenerzeuger :: createGraph(){
 	} 
 	return NULL; //! Es wird ein Nullzeiger zurueckgegeben wenn kein Graph erzeugt werden konnte. 
 }
-void Graphenerzeuger :: outputGraph(){
+
+void Graphenerzeuger :: outputGraph(){//! Gibt den Graphen auf der Konsole aus.
 	if( startElement != NULL){
 
 		for(ListenElement* laufzeiger = startElement; laufzeiger != NULL; laufzeiger = laufzeiger->getNextElement()){
-		// gibt schaltwerkdaten aus
+		
 		cout << "Gattername: " << laufzeiger->getSchaltwerkElement()->getName() << endl;
 		cout << "Gattertyp: " << laufzeiger->getSchaltwerkElement()->getTyp()->getName() << endl;
 		cout << "-->Das Gatter hat " << laufzeiger->getSchaltwerkElement()->getAnzahlNachfolger() << " Ziele" << endl;
 		cout << "Angeschlossene Gatter: ";
-		// gibt nachfolger aus
-		for( int e = 0; e< laufzeiger->getSchaltwerkElement()->getAnzahlNachfolger(); e++){
+		
+		for( int e = 0; e< laufzeiger->getSchaltwerkElement()->getAnzahlNachfolger(); e++){//! gibt die Nachfolger des Gatters aus.
 
 			cout << laufzeiger->getSchaltwerkElement()->getNachfolger(e)->getName() << "  " ;
 		}
 			cout << endl;
-			// gibt boolwerte aus
-		if( laufzeiger->getSchaltwerkElement()->getIsAusgangsElement() ){
+			
+		if( laufzeiger->getSchaltwerkElement()->getIsAusgangsElement() ){//! gibt einen Boolwert zurueck.
 
 		cout << " es ist ein ausgangselement" << endl;
 		}
@@ -216,7 +200,7 @@ void Graphenerzeuger :: outputGraph(){
 			cout << endl << endl << endl;
 
 		
-		} // ende der forschleife
+		} // Ende der for-Schleife
 	
 		
 	}

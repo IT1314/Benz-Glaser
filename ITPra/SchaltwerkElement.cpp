@@ -12,7 +12,7 @@ SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp){
 	anzahlNachfolger = 0;
 	isEingangsElement = false;
 	isAusgangsElement= false;
-	anzahlEingangssignale=(*gTyp).getEingaenge();
+	anzahlEingangssignale= 0;
 	
 	typ=gTyp;
 	vector <SchaltwerkElement*> nachfolgerElemente;
