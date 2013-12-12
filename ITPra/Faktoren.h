@@ -37,7 +37,10 @@ class Faktoren
 		bool berechneSpannungFaktor(double spg);
 		bool berechneTemperaturFaktor(double temp);
 		bool berechneProzessFaktor(short prz);
-		
+		double get_prozess_faktor(){return prozessFaktor;}
+		double get_temperatur_faktor(){return temperaturFaktor;}
+		double get_spannungs_faktor(){return spannungFaktor;}
+
 		double interpolation(double value, double x1, double x2, double y1, double y2);
 
 		double getSpannung();

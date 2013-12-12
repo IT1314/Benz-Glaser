@@ -49,7 +49,7 @@ string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 	return dummy_string;
 }
 
-void SignalListeErzeuger::Ausgabe_Schaltnetzdatei()
+void SignalListeErzeuger::ausgabe_Schaltnetzdatei()
 {
 	ifstream in (this->datei);
 	if(in)
@@ -69,7 +69,28 @@ void SignalListeErzeuger::Ausgabe_Schaltnetzdatei()
 	
 }
 
-void SignalListeErzeuger::Ausgabe_Signale()
+void SignalListeErzeuger::ausgabe_signale()
+{
+	cout << endl << "------------------------" << endl;
+	cout << "Signale:" << endl << "-------" << endl;
+	for (unsigned int counter = 0; counter <signalliste.size(); counter++)
+	{
+		cout << "Signalname : " << signalliste.at(counter).getName() << endl;
+		cout << "Signaltyp : " << signalliste.at(counter).getQuellenTyp() << endl;
+		cout << "Signalquelle : " << signalliste.at(counter).getQuelle() << endl;
+		cout << "-->Das Signal hat " << signalliste.at(counter).getAnzahlZiele() << " Ziele" << endl;
+		cout << "Ziel-Gatter : ";
+		for (int counter2 = 0; counter2 < signalliste.at(counter).getAnzahlZiele(); counter2++)
+		{
+			cout << signalliste.at(counter).getZiel(counter2) << " ";
+		}
+		cout << endl << endl;
+	}
+	system("PAUSE");
+	system("cls");
+}
+
+void SignalListeErzeuger::berechne_Signale()
 { 
 	signalliste.clear();					// resette Signalliste
 	ifstream input (this->datei.c_str());
@@ -151,17 +172,6 @@ void SignalListeErzeuger::Ausgabe_Signale()
 			signal_counter++;
 			temp = zeile.find("s",temp) + 1;
 		}
-		static bool nur_einmal_anlegen = 0;
-		
-//********************* Clock Signal anlegen *****************************		
-		if (nur_einmal_anlegen == 0)
-		{
-			Signal clk_signal;
-			clk_signal.setSignalTyp(eingang);		// Clock Signal wird hinzugefuegt und als Eingang definiert
-			clk_signal.setName("clk");
-			signalliste.push_back(clk_signal);
-			nur_einmal_anlegen = 1;
-		}
 
 //********************** Frequenz Ermittlung ****************************
 		if (zeile.find("s",temp) == string::npos )
@@ -190,6 +200,7 @@ void SignalListeErzeuger::Ausgabe_Signale()
 					string versuch = zeile.substr(pos1+1, pos2-pos1);
 					temp_frequenz = stod(versuch.c_str());
 				}
+				this->frequenz = temp_frequenz;
 				search_terminate = 1;
 			}
 		}
@@ -231,8 +242,6 @@ void SignalListeErzeuger::Ausgabe_Signale()
 		
 	this->anzahlSignale = signalliste.size();		// speichern der Anzahle der Signale in der Klasse
 	cout << "SUCCESS!" << endl;
-	system("PAUSE");
-	system("cls");
 }
 
 bool SignalListeErzeuger::check_for_gatter(string temp_str, vector<Signal>* signalliste_local)

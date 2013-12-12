@@ -11,7 +11,9 @@ private:
 			
 	short anzahlSignale;		 
 	std::string datei;			
-	long frequenz;				
+	long frequenz;
+
+	bool check_for_gatter(string temp_str, vector<Signal>* signalliste);
 
 public:
 	SignalListeErzeuger();
@@ -19,9 +21,9 @@ public:
 	std::vector<Signal> signalliste;
 	std::string enter_pfad(bool* guterpfad);
 
-	void Ausgabe_Schaltnetzdatei();
-	void Ausgabe_Signale();
-	bool check_for_gatter(string temp_str, vector<Signal>* signalliste);
+	void ausgabe_signale();
+	void berechne_Signale();
+	void ausgabe_Schaltnetzdatei();
 	long get_frequenz () {return this->frequenz;}
 	short get_anzahlSignale() {return this->anzahlSignale;}
 

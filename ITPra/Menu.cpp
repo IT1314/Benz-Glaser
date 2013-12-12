@@ -17,6 +17,8 @@
 #include "SchaltwerkElement.h"
 #include "main.h"
 #include "itiv_win_drv.h"	
+#include "ListenElement.h"
+#include "Laufzeitanalyse.h"
 using namespace std;
 //***************** INCLUDE FILES END **************************
 
@@ -27,14 +29,8 @@ Menu meinMenu;
 Faktoren meineFaktoren;
 Bibliothek meineBibliothek("..\bib2.txt");
 SignalListeErzeuger meinSignalListeErzeuger;
-	string auswahl="";															
-	int auswahlzuint=0;
-	double spannung_untermenue = 0;
-	double temperatur_untermenue = 0;
-	double prozess_untermenue = 0;
-	string schaltnetzdatei_pfad;
-	bool guterpfad = 0;
-	bool guter_bibliotheks_pfad = 0;
+LaufzeitAnalyse meineLaufzeitanalyse;														
+
 
 //***************** MODUL GLOBAL VARIABLES END *****************
 
@@ -51,6 +47,14 @@ Menu::Menu(void)
 	GraphErzeuger meinGraphErzeuger;
 	LaufzeitAnalysator meinLaufzeitAnalysator;
 */
+	this->meinGraphenerzeuger = NULL;
+	this->auswahl = "";
+	this->auswahlzuint = 0;
+	this->spannung_untermenue = 0;
+	this->temperatur_untermenue = 0;
+	this->prozess_untermenue = 0;
+	this->guterpfad = 0;
+	this->guter_bibliotheks_pfad = 0;
 }
 
 Menu::~Menu(void) 
@@ -269,11 +273,21 @@ void Menu::bibliothekMenue()
 				cout << "Bitte geben Sie den Pfad zur Bibliotheksdatei ein: " << endl;
 				cin >> pfad_eingabe;
 				guter_bibliotheks_pfad = meineBibliothek.pfadEinlesen(pfad_eingabe);
-
+				if (guter_bibliotheks_pfad == true)
+				{
+					meineBibliothek.dateiAuswerten();
+				}
 				break;
 			case BIBLIOTHEKSDATEI_AUSGABE:
-				meineBibliothek.dateiAuswerten();
-				meineBibliothek.dateiAusgabe();
+				if (guter_bibliotheks_pfad == true)
+				{
+					meineBibliothek.dateiAusgabe();
+				}
+				else
+				{
+					system("cls");
+					cout << "Bitte geben Sie zuerst einen korrekten Pfad ein!" << endl;
+				}
 				system("pause");
 				break;
 			case HAUPTMENUE_BIBLIOTHEK:
@@ -306,33 +320,60 @@ void Menu::schaltwerkMenue()
 		cout << "(4) Ausgabe der Graphstruktur" << endl;
 		cout << "(5) Hauptmenue" << endl << endl;
 		cout << "Waehle einen Menuepunkt und bestaetige mit Enter: ";
-		meineBibliothek.dateiAuswerten();
-		Graphenerzeuger Graph (&meineBibliothek,meinSignalListeErzeuger.signalliste);
 		unsigned int zustand = 0;
 		string eingabe;
 		cin >> eingabe;
 		zustand = atoi(eingabe.c_str());
 		switch (zustand)
 		{
+			if (this->meinGraphenerzeuger != NULL && guterpfad == 1)
+			{
+				meinSignalListeErzeuger.berechne_Signale();
+				this->erstes_element = this->meinGraphenerzeuger->createGraph();
+			}
 			case PFAD:
 				schaltnetzdatei_pfad = meinSignalListeErzeuger.enter_pfad(&guterpfad);
+				if (guterpfad == 1)
+				{
+					meinSignalListeErzeuger.berechne_Signale();
+				}
+				if (meineBibliothek.getPfad() != "" && meinSignalListeErzeuger.signalliste.size() != 0)
+				{
+					this->meinGraphenerzeuger = new Graphenerzeuger(&meineBibliothek,meinSignalListeErzeuger.signalliste);
+					this->erstes_element = this->meinGraphenerzeuger->createGraph();
+				}
 				break;
 			case AUSGABE_SCHALTNETZDATEI:
-				if (guterpfad == 1){meinSignalListeErzeuger.Ausgabe_Schaltnetzdatei();}
+				if (guterpfad == 1){meinSignalListeErzeuger.ausgabe_Schaltnetzdatei();}
+				else 
+				{
+					cout << "Fehler! bitte erst Signalliste und Bibliothek einpflegen!" << endl;
+				}
 				system("PAUSE");
 				break;
 			case AUSGABE_SIGNALE_MENU:
 				if (guterpfad == 1 ) 
 				{
-					meinSignalListeErzeuger.Ausgabe_Signale();
+					meinSignalListeErzeuger.ausgabe_signale();
 				}
-				system("pause");
+				else 
+				{
+					cout << "Fehler! bitte erst Signalliste und Bibliothek einpflegen!" << endl;
+					system("pause");
+				}
 				break;
 			case AUSGABE_GRAPHSTRUKTUR:
-				
-				
-				Graph.createGraph();
-				Graph.outputGraph();
+
+				if (this->meinGraphenerzeuger != NULL && guterpfad == 1)
+				{
+					meinSignalListeErzeuger.berechne_Signale();
+					this->erstes_element = this->meinGraphenerzeuger->createGraph();
+					this->meinGraphenerzeuger->outputGraph();
+				}
+				else 
+				{
+					cout << "Fehler! bitte erst Signalliste und Bibliothek einpflegen!" << endl;
+				}
 				system("pause");
 				break;
 			case HAUPTMENUE:
@@ -350,11 +391,11 @@ void Menu::analyse()
 //**** FUNKTIONSAUFGABE: Enthält alle Funktionen/Methoden für die Analyse
 
 	system("cls");
-	cout << "ANALYSE" << endl << endl << endl;	//Der ganze Block wird durch das Analyse Modul ersetzt!!!
-	system("pause");
+	LaufzeitAnalyse* neue_laufzeitanalyse = new LaufzeitAnalyse;
+	neue_laufzeitanalyse->laufzeit_analyse(this->erstes_element, &meineFaktoren, meinSignalListeErzeuger.get_frequenz());
 	system("cls");
+	delete neue_laufzeitanalyse;
 
-	
 }
 
 void Menu::menueKopf()
@@ -421,14 +462,6 @@ void Menu::start()
 
 
 //***************** FUNCTIONS AND METHODS DECLARATIONS END *****
-
-int _tmain(int argc, _TCHAR* argv[])
-{
-// FUNKTIONSAUFGABE: Main funktion, startet Menue und dient zum beenden des Programms.
-	Menu startmenue;
-	startmenue.start();
-	return 0;
-}
 
 
 

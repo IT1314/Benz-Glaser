@@ -11,7 +11,6 @@
 using namespace std;
 //***************** INCLUDE FILES END **************************
 
-Faktoren meineFaktoren_intern;
 
 // ********************** METHODEN DEKLARATION ************************
 
@@ -35,7 +34,7 @@ double Faktoren::berechneFaktor(double value, vector<vector<double>> arr, int la
 		}
 		if ( arr[i][0] > value)				// Sobald der Wert kleiner als das Array Element ist, werden die x und y Werte von dem Element und dem Vorgänger übergeben
 		{
-			return meineFaktoren_intern.interpolation(value,arr[i-1][0],arr[i][0],arr[i-1][1],arr[i][1]);
+			return this->interpolation(value,arr[i-1][0],arr[i][0],arr[i-1][1],arr[i][1]);
 		}	
 	}
 	return 0;
@@ -43,6 +42,7 @@ double Faktoren::berechneFaktor(double value, vector<vector<double>> arr, int la
 
 bool Faktoren::berechneSpannungFaktor(double spg)
 {
+	this->spannung = spg;
 	vector<vector<double> > spannungs_werte(7, vector<double>(2));
 	spannungs_werte[0][0] = 1.08;		// Spannungswerte
 	spannungs_werte[1][0] = 1.12;
@@ -69,12 +69,13 @@ bool Faktoren::berechneSpannungFaktor(double spg)
 		system("cls");
 		return 0;
 	}
-	meineFaktoren_intern.spannungFaktor = meineFaktoren_intern.berechneFaktor(spg, spannungs_werte, array_laenge);
+	this->spannungFaktor = this->berechneFaktor(spg, spannungs_werte, array_laenge);
 	return 1;
 }
 
 bool Faktoren::berechneTemperaturFaktor(double temp)
 {
+	this->temperatur = temp;
 	vector<vector<double> > temperatur_werte(15, vector<double>(2));
 	temperatur_werte[0][0] = -25;		// temperatur Werte
 	temperatur_werte[1][0] = -15;
@@ -118,13 +119,14 @@ bool Faktoren::berechneTemperaturFaktor(double temp)
 		return 0;
 	}
 
-	meineFaktoren_intern.temperaturFaktor = meineFaktoren_intern.berechneFaktor(temp, temperatur_werte, array_laenge);
+	this->temperaturFaktor = this->berechneFaktor(temp, temperatur_werte, array_laenge);
 	return 1;
 }
 
 
 bool Faktoren::berechneProzessFaktor(short prz)
 {
+	this->prozess = prz;
 	vector<vector<double> > prozess_werte(3, vector<double>(2));
 	prozess_werte[0][0] = SLOW;		// Prozess Modi
 	prozess_werte[1][0] = TYPICAL;
@@ -144,26 +146,26 @@ bool Faktoren::berechneProzessFaktor(short prz)
 		return 0;
 	}
 
-	meineFaktoren_intern.prozessFaktor = meineFaktoren_intern.berechneFaktor(prz, prozess_werte, array_laenge);
+	this->prozessFaktor = this->berechneFaktor(prz, prozess_werte, array_laenge);
 	return 1;
 }
 
-double Faktoren::getSpannung() {return meineFaktoren_intern.spannung;}
+double Faktoren::getSpannung() {return this->spannung;}
 
-double Faktoren::getTemperatur() {return meineFaktoren_intern.temperatur;}//verändert
+double Faktoren::getTemperatur() {return this->temperatur;}//verändert
 
-short Faktoren::getProzess() {return short(meineFaktoren_intern.prozess);}
+short Faktoren::getProzess() {return short(this->prozess);}
 
-bool Faktoren::setSpannung(double spannung) {meineFaktoren_intern.spannung = spannung; return 1;}
+bool Faktoren::setSpannung(double spannung) {this->spannung = spannung; return 1;}
 
-bool Faktoren::setTemperatur(double temp) {meineFaktoren_intern.temperatur = temp; return 1;}
+bool Faktoren::setTemperatur(double temp) {this->temperatur = temp; return 1;}
 
-bool Faktoren::setProzess(short prz) {meineFaktoren_intern.prozess = prz; return 1;}
+bool Faktoren::setProzess(short prz) {this->prozess = prz; return 1;}
 
 void Faktoren::ausgabeFaktoren()
 {
 	cout << endl << "----------------------------------------" << endl << endl;
-	cout << "Faktoren: KV: " << meineFaktoren_intern.spannungFaktor << " |KT: " << meineFaktoren_intern.temperaturFaktor << " |KP: " << meineFaktoren_intern.prozessFaktor << endl << endl;
+	cout << "Faktoren: KV: " << this->spannungFaktor << " |KT: " << this->temperaturFaktor << " |KP: " << this->prozessFaktor << endl << endl;
 	system("pause");
 	system("cls");
 	return;
