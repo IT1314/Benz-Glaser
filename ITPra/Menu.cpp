@@ -277,6 +277,7 @@ void Menu::bibliothekMenue()
 				{
 					meineBibliothek.dateiAuswerten();
 				}
+				system("PAUSE");
 				break;
 			case BIBLIOTHEKSDATEI_AUSGABE:
 				if (guter_bibliotheks_pfad == true)
@@ -288,7 +289,7 @@ void Menu::bibliothekMenue()
 					system("cls");
 					cout << "Bitte geben Sie zuerst einen korrekten Pfad ein!" << endl;
 				}
-				system("pause");
+				system("PAUSE");
 				break;
 			case HAUPTMENUE_BIBLIOTHEK:
 				system("cls");
@@ -342,6 +343,7 @@ void Menu::schaltwerkMenue()
 					this->meinGraphenerzeuger = new Graphenerzeuger(&meineBibliothek,meinSignalListeErzeuger.signalliste);
 					this->erstes_element = this->meinGraphenerzeuger->createGraph();
 				}
+				system("PAUSE");
 				break;
 			case AUSGABE_SCHALTNETZDATEI:
 				if (guterpfad == 1){meinSignalListeErzeuger.ausgabe_Schaltnetzdatei();}

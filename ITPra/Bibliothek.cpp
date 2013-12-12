@@ -48,6 +48,11 @@ void Bibliothek ::dateiAusgabe(){//! Ausgabe
 		if(!in.eof()){
 			while (!(in.eof()) ){
 				getline ( in , zeile );//!Zeilenweise einlesen
+				if((zeile.find("// Diese Schaltnetzdatei enthält einen"))!= string::npos){
+					cout<<" Sie haben versucht die Schaltnetzdatei in die Bibliothek einzulesen!"<<endl;
+					datei = " ";
+					break;
+				}
 				if(in.bad() == false){
 					cout << line << ". "<< zeile <<endl;
 					line++;
@@ -75,11 +80,17 @@ ifstream in (datei.c_str());
 		string zeile;
 		string flip = "dff";
 		if (!(in.eof()) && in.good()){
-			
-			
-
 			do{
 					getline ( in , zeile );
+
+						if(((zeile.find("// Diese Schaltnetzdatei enthält einen"))!= string::npos)){
+								cout<<" Sie haben versucht die Schaltnetzdatei in die Bibliothek einzulesen!"<<endl;
+								datei = " ";
+								return ;
+							}
+
+			
+					
 
 					}while(!((zeile.find("dff"))!= string::npos));
 				
@@ -220,6 +231,14 @@ bool Bibliothek :: pfadEinlesen( string pfad) {
 	ifstream in(pfad.c_str());
 
 	if(in){
+		string zeile;
+		getline ( in , zeile );
+
+						if(((zeile.find("// Diese Schaltnetzdatei enthält einen"))!= string::npos)){
+								cout<<"Sie haben versucht die Schaltnetzdatei in die Bibliothek einzulesen!"<<endl;
+								datei = " ";
+								return false;
+							}
 		datei = pfad;
 		in.close();
 		return true;

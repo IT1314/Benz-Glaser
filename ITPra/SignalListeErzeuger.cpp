@@ -9,6 +9,8 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
+#include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,6 +29,7 @@ SignalListeErzeuger::~SignalListeErzeuger()
 
 string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 {
+	string zeile;
 	string pfad;
 	system("cls");
 	cout << "Bitte geben sie den Pfad fuer die Schaltnetzdatei ein: " << endl;
@@ -34,11 +37,19 @@ string SignalListeErzeuger::enter_pfad(bool* guterpfad)
 	ifstream in(pfad.c_str());
 	if (in)
 	{ 
+		getline ( in , zeile );
+		getline ( in , zeile );
+
+		if(((zeile.find("//Bibliothek zu Projektpraktikum Informationstechnik"))!= string::npos)){
+				cout<<" Sie haben versucht die Bibliothek in die Schaltnetzdatei einzulesen!"<<endl;
+				pfad = " ";
+				return " " ;
+		}
 		*guterpfad = 1;												// Hilfe für das Menu, wenn True wird der Pfad im Menue angezeigt
 		cout << endl << "Eingabe war erfolgreich!" << endl;
 		this->datei = pfad;									// Pfad wird in Klassen String gespeichert gespeichert
 		system ("pause");
-		system ("csl");
+		system ("cls");
 		return this->datei;
 	}
 	*guterpfad = 0;
