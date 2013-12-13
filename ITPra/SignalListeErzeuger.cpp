@@ -253,6 +253,9 @@ void SignalListeErzeuger::berechne_Signale()
 		
 	this->anzahlSignale = signalliste.size();		// speichern der Anzahle der Signale in der Klasse
 	cout << "SUCCESS!" << endl;
+
+	system("PAUSE");
+	system("cls");
 }
 
 bool SignalListeErzeuger::check_for_gatter(string temp_str, vector<Signal>* signalliste_local)

@@ -24,19 +24,13 @@ string Bibliothek :: getPfad (){
 	return datei;
 }
 GatterTyp* Bibliothek::getBibElement( string typ){//! Übergibt einen Zeiger auf das Gatterelement
-
 	GatterTyp* back = NULL;
-
 	for( unsigned int a= 0; a<bibElemente.size(); a++){//! Durchlaeuft alle Elemente
-
 		if( bibElemente.at(a)->getName() == typ){
-
 			back = bibElemente.at(a);
 			break;
 		}
-		
 	}
-
 	return back;
 }
 
@@ -71,161 +65,110 @@ void Bibliothek ::dateiAusgabe(){//! Ausgabe
 }
 void Bibliothek ::dateiAuswerten(){
 	int blockcounter = 0;//! blockcounter ueberprueft die blocklaenge.
-  bibElemente.clear();
+	bibElemente.clear();
 
-	
-ifstream in (datei.c_str());
+	ifstream in (datei.c_str());
 	if(in){
-		
 		string zeile;
 		string flip = "dff";
 		if (!(in.eof()) && in.good()){
 			do{
-					getline ( in , zeile );
-
-						if(((zeile.find("// Diese Schaltnetzdatei enthält einen"))!= string::npos)){
-								cout<<" Sie haben versucht die Schaltnetzdatei in die Bibliothek einzulesen!"<<endl;
-								datei = " ";
-								return ;
-							}
-
-			
-					
-
-					}while(!((zeile.find("dff"))!= string::npos));
-				
+				getline ( in , zeile );
+			}while(!((zeile.find("dff"))!= string::npos));             
 		}
 		while (!(in.eof()) && in.good()){
-			
-			
-
-			
 			if(in.bad() == false){
-        getline ( in , zeile );//!Zeilenweise einlesen
-
-	           
-
-				if(zeile.find("[") != string::npos){
-
-				if(zeile.substr(zeile.find("[") +1,zeile.find("]")-1)== flip){
-
-					Flipflop* Flip = new Flipflop;
-				    do{
-							getline ( in , zeile );//!Zeilenweise einlesen
-							Flip->setName(flip);
-												
-
-					if(zeile.find("ed:")!= string::npos){
-				     string ed0 =zeile.substr(zeile.find(":") +1);
-					 double  ed = atof(ed0.c_str());
-					 Flip->setEingaenge(ed);
-                     blockcounter ++;
-			
-					}
-					if(zeile.find("tsetup:")!= string::npos){
-				    string tsetup0 =zeile.substr(zeile.find(":") +1);
-					 double tsetup = atof(tsetup0.c_str());
-                     Flip->setSetupTime(tsetup);
-                     blockcounter ++;
-			
-					}
-					if(zeile.find("thold:")!= string::npos){
-				     string thold0 =zeile.substr(zeile.find(":") +1);
-					 double thold = atof(thold0.c_str());
-                     Flip->setHoldTime(thold);
-                     blockcounter ++;
-			
-					}
-					if(zeile.find("cd:")!= string::npos){
-				    string cd0 =zeile.substr(zeile.find(":") +1);
-					double cd = atof(cd0.c_str());
-                    Flip->setLastKapazitaet(cd);
-                    blockcounter ++;
-			
-					}
-					if(zeile.find("et:")!= string::npos){
-
+				getline ( in , zeile );//!Zeilenweise einlesen
+				if(zeile.substr(zeile.find("[") +1,(zeile.find("]"))-1)== flip){
+			Flipflop* Flip = new Flipflop;
+			do{
+				getline ( in , zeile );//!Zeilenweise einlesen
+				Flip->setName(flip);
+				if(zeile.find("ed:")!= string::npos){
+					double  ed = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setEingaenge(ed);
 					blockcounter ++;
-			
-					}
-					if(zeile.find("tpdt:")!= string::npos){
-				     string tpdt0 =zeile.substr(zeile.find(":") +1);
-					 double tpdt = atof(tpdt0.c_str());
-                     Flip->setGrundLaufzeit(tpdt);
-                     blockcounter ++;
-
-					}
-					if(zeile.find("kl:")!= string::npos){
-				    string kl0 =zeile.substr(zeile.find(":") +1);
-					double kl = atof(kl0.c_str());
-                    Flip->setLastFaktor(kl);
-                    blockcounter ++;
-			
-					}
-					if(zeile.find("ct:")!= string::npos){
-				    string ct0 =zeile.substr(zeile.find(":") +1);
-					double ct = atof(ct0.c_str());
-                    Flip->setLastKapazitaet(ct);
-                    blockcounter ++;
-			
-					}
-						  }	
-					while((blockcounter < 8) && !(in.eof()));
-					bibElemente.push_back(Flip);
-					blockcounter = 0;
 				}
-			else{
-					GatterTyp* Bauteil = new GatterTyp;
-					if(zeile.find("[") != string::npos){
-											Bauteil->setName(zeile.substr(zeile.find("[") +1,zeile.find("]")-1));
-											blockcounter ++;
-					}
-					do{
-					getline ( in , zeile );//!Zeilenweise einlesen
-						
-					
-					
-					
-					if(zeile.find("ei:") != string::npos){
-						string ei0 =zeile.substr(zeile.find(":")+1);
-						double ei = atof(ei0.c_str());
-						Bauteil->setEingaenge(ei);
-						blockcounter ++;
-					}
-					if(zeile.find("tpd0:") != string::npos){
-						
-						string tpd0 = zeile.substr(zeile.find(":")+1);
-						double tpd = atof( tpd0.c_str());											 
-						Bauteil->setGrundLaufzeit(tpd);
-						blockcounter ++;
-					}
-					if(zeile.find("kl:") != string::npos){
-						string kl0 = zeile.substr(zeile.find(":") +1);
-						double kl = atof( kl0.c_str());
-						Bauteil->setLastFaktor(kl);
-						blockcounter ++;
-					}
-					if(zeile.find("cl:") != string::npos){
-						string cl0 = zeile.substr(zeile.find(":") +1);
-						double cl = atof(cl0.c_str());
-						Bauteil->setLastKapazitaet(cl);
-						blockcounter ++;
-					}
-					}while((blockcounter < 5) && !(in.eof()));
-						bibElemente.push_back(Bauteil);
-						blockcounter = 0;
-					}
-         }
+				if(zeile.find("tsetup:")!= string::npos){
+					double tsetup = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setSetupTime(tsetup);
+					blockcounter ++;
+				}
+				if(zeile.find("thold:")!= string::npos){
+					double thold = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setHoldTime(thold);
+					blockcounter ++;
+				}
+				if(zeile.find("cd:")!= string::npos){
+					double cd = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setLastKapazitaet(cd);
+					blockcounter ++;
+				}	
+				if(zeile.find("et:")!= string::npos){
+					blockcounter ++;
+				}
+				if(zeile.find("tpdt:")!= string::npos){
+					double tpdt = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setGrundLaufzeit(tpdt);
+					blockcounter ++;
+				}
+				if(zeile.find("kl:")!= string::npos){
+					double kl = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setLastFaktor(kl);
+					blockcounter ++;
+				}
+				if(zeile.find("ct:")!= string::npos){
+					double ct = atof((zeile.substr(zeile.find(":") +1)).c_str());
+					Flip->setLastKapazitaet(ct);
+					blockcounter ++;			
+				}
+			} while((blockcounter < 8) && !(in.eof()));
+			bibElemente.push_back(Flip);
+			blockcounter = 0;
+		} else {
+			GatterTyp* Bauteil = new GatterTyp;
+			if(zeile.find("[") != string::npos){
+				Bauteil->setName(zeile.substr(zeile.find("[") +1,zeile.find("]")-1));
+				blockcounter ++;
+			}
+			do{
+				getline ( in , zeile );//!Zeilenweise einlesen
+				if(zeile.find("ei:") != string::npos){
+					string ei0 =zeile.substr(zeile.find(":")+1);
+					double ei = atof(ei0.c_str());
+					Bauteil->setEingaenge(ei);
+					blockcounter ++;
+				}
+				if(zeile.find("tpd0:") != string::npos){
+					string tpd0 = zeile.substr(zeile.find(":")+1);
+					double tpd = atof( tpd0.c_str());
+					Bauteil->setGrundLaufzeit(tpd);
+					blockcounter ++;
+				}
+				if(zeile.find("kl:") != string::npos){
+					string kl0 = zeile.substr(zeile.find(":") +1);
+					double kl = atof( kl0.c_str());
+					Bauteil->setLastFaktor(kl);
+					blockcounter ++;
+				}
+				if(zeile.find("cl:") != string::npos){
+					string cl0 = zeile.substr(zeile.find(":") +1);
+					double cl = atof(cl0.c_str());
+					Bauteil->setLastKapazitaet(cl);
+					blockcounter ++;
+				}
+			} while((blockcounter < 5) && !(in.eof()));
+			bibElemente.push_back(Bauteil);
+			blockcounter = 0;
 		}
-	 else{
-			readError();
-	   	}
-    }
-  }
-  in.close();
-  
-  
+    } else {
+		readError();
+	}
 }
+}
+  in.close();
+}
+
 bool Bibliothek :: pfadEinlesen( string pfad) {
 	
 	ifstream in(pfad.c_str());
